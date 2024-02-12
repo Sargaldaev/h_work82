@@ -2,6 +2,7 @@ import express from 'express';
 import {ITrackCreate} from '../type';
 import mongoose from 'mongoose';
 import Track from '../models/Track';
+import Album from '../models/Album';
 
 const tracksRouter = express.Router();
 
@@ -28,15 +29,31 @@ tracksRouter.post('/', async (req, res, next) => {
 
 tracksRouter.get('/', async (req, res) => {
 
-  const albumId = req.query.album;
+  const album = req.query.album;
 
   try {
-    if (albumId) {
-      const tracks = await Track.find({album: albumId});
+    if (album) {
+      const tracks = await Track.find({album});
       return res.send(tracks);
     }
     const tracks = await Track.find();
     return res.send(tracks);
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+
+tracksRouter.get('/:id', async (req, res) => {
+  const artist = req.params.id;
+  try {
+    const album = await Album.find({artist});
+    if (album.length === 0) {
+      return res.send('not found')
+    }
+    const track = await Track.find({album});
+    return res.send(track);
+
   } catch (e) {
     res.send(e);
   }

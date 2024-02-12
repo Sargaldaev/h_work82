@@ -30,11 +30,11 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
 
 albumsRouter.get('/', async (req, res) => {
 
-  const artistId = req.query.artist;
+  const artist = req.query.artist;
 
   try {
-    if (artistId) {
-      const albums = await Album.find({artist: artistId});
+    if (artist) {
+      const albums = await Album.find({artist});
       return res.send(albums);
     }
     const albums = await Album.find();
@@ -46,7 +46,6 @@ albumsRouter.get('/', async (req, res) => {
 
 
 albumsRouter.get('/:id', async (req, res) => {
-
   const id = req.params.id;
 
   try {
