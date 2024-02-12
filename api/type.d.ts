@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export interface IArtistCreate {
   name: string;
   image: string | null;
