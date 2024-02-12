@@ -3,7 +3,6 @@ import {IAlbumCreate} from '../type';
 import {imagesUpload} from '../multer';
 import mongoose from 'mongoose';
 import Album from '../models/Album';
-import artists from './artists';
 
 const albumsRouter = express.Router();
 

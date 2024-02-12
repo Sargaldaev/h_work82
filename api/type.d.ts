@@ -15,6 +15,6 @@ export interface IAlbumCreate {
 
 export interface ITrackCreate {
   name: string;
-  album: string;
+  album: mongoose.Types.ObjectId;
   duration: string;
 }
