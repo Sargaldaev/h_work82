@@ -1,4 +1,4 @@
-import {Schema} from 'mongoose';
+import {Model, Schema} from 'mongoose';
 
 export interface UserFields {
   username: string;
@@ -23,3 +23,10 @@ export interface TrackCreate {
   album: Schema.Types.ObjectId;
   duration: string;
 }
+
+interface UserMethods {
+  checkPassword(password: string): Promise<boolean>;
+  generateToken(): void;
+}
+
+type UserModel = Model<UserFields, {}, UserMethods>;
