@@ -32,6 +32,10 @@ usersRouter.post('/sessions', async (req, res) => {
     return res.status(400).send({error: 'Password or Username wrong'});
   }
 
+  if (!req.body.password) {
+    return res.status(400).send({error: 'Password required'});
+  }
+
   const isMatch = await user.checkPassword(req.body.password);
 
   if (!isMatch) {

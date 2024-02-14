@@ -1,10 +1,12 @@
-import {Model, Schema} from 'mongoose';
+import mongoose, {Model, Schema} from 'mongoose';
+import user from './models/User';
 
 export interface UserFields {
   username: string;
   password: string;
-  token:string;
+  token: string;
 }
+
 export interface ArtistCreate {
   name: string;
   image: string | null;
@@ -24,8 +26,18 @@ export interface TrackCreate {
   duration: string;
 }
 
+
+
+export interface Track_history {
+  user: user
+  track: mongoose.Types.ObjectId;
+  datetime: Date;
+}
+
+
 interface UserMethods {
   checkPassword(password: string): Promise<boolean>;
+
   generateToken(): void;
 }
 

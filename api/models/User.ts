@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import {UserFields, UserMethods, UserModel} from '../type';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import {randomUUID} from 'crypto';
 
 
