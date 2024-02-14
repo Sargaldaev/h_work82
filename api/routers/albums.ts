@@ -1,5 +1,5 @@
 import express from 'express';
-import {IAlbumCreate} from '../type';
+import {AlbumCreate} from '../type';
 import {imagesUpload} from '../multer';
 import mongoose from 'mongoose';
 import Album from '../models/Album';
@@ -8,7 +8,7 @@ const albumsRouter = express.Router();
 
 albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
 
-  const album: IAlbumCreate = {
+  const album: AlbumCreate = {
     name: req.body.name,
     artist: req.body.artist,
     releaseYear: req.body.releaseYear,
@@ -21,7 +21,7 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
     res.send(saveAlbum);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
-      res.status(400).send(e);
+      res.status(422).send(e);
     }
     next(e);
   }

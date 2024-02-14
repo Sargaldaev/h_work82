@@ -1,5 +1,5 @@
 import express from 'express';
-import {IArtistCreate} from '../type';
+import {ArtistCreate} from '../type';
 import {imagesUpload} from '../multer';
 import mongoose from 'mongoose';
 import Artist from '../models/Artist';
@@ -8,7 +8,7 @@ const artistsRouter = express.Router();
 
 artistsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
 
-  const artist: IArtistCreate = {
+  const artist: ArtistCreate = {
     name: req.body.name,
     description: req.body.description,
     image: req.file ? 'images/' + req.file.filename : null,
@@ -20,7 +20,7 @@ artistsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => 
     res.send(saveArtist);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
-      res.status(400).send(e);
+      res.status(422).send(e);
     }
     next(e);
   }

@@ -1,5 +1,5 @@
 import express from 'express';
-import {ITrackCreate} from '../type';
+import {TrackCreate} from '../type';
 import mongoose from 'mongoose';
 import Track from '../models/Track';
 import Album from '../models/Album';
@@ -8,7 +8,7 @@ const tracksRouter = express.Router();
 
 tracksRouter.post('/', async (req, res, next) => {
 
-  const track: ITrackCreate = {
+  const track: TrackCreate = {
     name: req.body.name,
     album: req.body.album,
     duration: req.body.duration,
@@ -20,7 +20,7 @@ tracksRouter.post('/', async (req, res, next) => {
     res.send(saveTrack);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
-      res.status(400).send(e);
+      res.status(422).send(e);
     }
     next(e);
   }

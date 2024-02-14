@@ -1,20 +1,25 @@
-import mongoose from 'mongoose';
+import {Schema} from 'mongoose';
 
-export interface IArtistCreate {
+export interface UserFields {
+  username: string;
+  password: string;
+  token:string;
+}
+export interface ArtistCreate {
   name: string;
   image: string | null;
   description: string | null;
 }
 
-export interface IAlbumCreate {
+export interface AlbumCreate {
   name: string;
   artist: string;
   image: string | null;
   releaseYear: string;
 }
 
-export interface ITrackCreate {
+export interface TrackCreate {
   name: string;
-  album: mongoose.Types.ObjectId;
+  album: Schema.Types.ObjectId;
   duration: string;
 }
