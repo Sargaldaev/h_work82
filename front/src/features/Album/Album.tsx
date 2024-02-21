@@ -1,22 +1,26 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
-import { fetchData } from '../../store/artist/artistThunk.ts';
-import { Link } from 'react-router-dom';
+import { fetchDataAlbum } from '../../store/album/albumThunk.ts';
+import { Link, useParams } from 'react-router-dom';
+import artist from '../Artist/Artist.tsx';
 
-const Artist = () => {
+const Album = () => {
+  const {id} = useParams() as { id: string };
   const dispatch = useDispatch<AppDispatch>();
-  const {artists} = useSelector((state: RootState) => state.artist);
+  const {albums} = useSelector((state: RootState) => state.album);
 
   useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
+    if (id) {
+      dispatch(fetchDataAlbum(id));
+    }
+  }, [dispatch, id]);
   return (
     <>
       <Box>
@@ -27,25 +31,25 @@ const Artist = () => {
         >
           {
 
-            artists.map(artist => {
+            albums.map(album => {
               return (
                 <Box
-                  key={artist._id}
+                  key={album._id}
                 >
                   <Card
                     sx={{width: 345}}
                   >
                     <CardMedia
                       sx={{height: 240}}
-                      image={`http://localhost:8000/${artist.image}`} // ToDo написать проверку на то что изобр не будет
+                      image={`http://localhost:8000/${album.image}`} // ToDo написать проверку на то что изобр не будет
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        {artist.name}
+                        {album.name}
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button component={Link} to={`/artist/${artist._id}`} size="small">Learn More</Button>
+                      <Button component={Link} to={`/albums/${album._id}`} size="small">Learn More</Button>
                     </CardActions>
                   </Card>
                 </Box>
@@ -59,4 +63,4 @@ const Artist = () => {
   );
 };
 
-export default Artist;
+export default Album;
