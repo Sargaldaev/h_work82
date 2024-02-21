@@ -23,6 +23,11 @@ const TrackSchema = new Schema({
     required: true
   },
 
+  songNumber: {
+    type: Number,
+    required: true
+  },
+
 });
 
 const Track = mongoose.model('Track', TrackSchema);

@@ -1,8 +1,15 @@
-import mongoose from 'mongoose';
-import {UserFields, UserMethods, UserModel} from '../type';
+import mongoose, {Model} from 'mongoose';
+import {UserFields} from '../type';
 import bcrypt from 'bcrypt';
 import {randomUUID} from 'crypto';
 
+
+interface UserMethods {
+  checkPassword(password: string): Promise<boolean>;
+  generateToken(): void;
+}
+
+type UserModel = Model<UserFields, {}, UserMethods>;
 
 const Schema = mongoose.Schema;
 

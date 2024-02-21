@@ -17,28 +17,19 @@ export interface AlbumCreate {
   name: string;
   artist: string;
   image: string | null;
-  releaseYear: string;
+  releaseYear: number;
 }
 
 export interface TrackCreate {
   name: string;
   album: Schema.Types.ObjectId;
   duration: string;
+  songNumber:number;
 }
-
 
 
 export interface Track_history {
-  user: user
+  user: user;
   track: mongoose.Types.ObjectId;
   datetime: Date;
 }
-
-
-interface UserMethods {
-  checkPassword(password: string): Promise<boolean>;
-
-  generateToken(): void;
-}
-
-type UserModel = Model<UserFields, {}, UserMethods>;
