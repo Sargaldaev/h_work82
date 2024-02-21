@@ -12,6 +12,7 @@ tracksRouter.post('/', async (req, res, next) => {
     name: req.body.name,
     album: req.body.album,
     duration: req.body.duration,
+    songNumber: req.body.songNumber
   };
 
   try {
