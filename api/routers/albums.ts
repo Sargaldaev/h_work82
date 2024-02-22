@@ -1,13 +1,12 @@
 import express from 'express';
-import {AlbumCreate} from '../type';
-import {imagesUpload} from '../multer';
+import { AlbumCreate } from '../type';
+import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 import Album from '../models/Album';
 
 const albumsRouter = express.Router();
 
 albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
-
   const album: AlbumCreate = {
     name: req.body.name,
     artist: req.body.artist,
@@ -27,14 +26,14 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
   }
 });
 
-
 albumsRouter.get('/', async (req, res) => {
-
   const artist = req.query.artist;
 
   try {
     if (artist) {
-      const albums = await Album.find({artist});
+      const albums = await Album.find({ artist })
+        .sort({ releaseYear: -1 })
+        .populate('artist', 'name');
       return res.send(albums);
     }
     const albums = await Album.find();
@@ -43,7 +42,6 @@ albumsRouter.get('/', async (req, res) => {
     res.send(e);
   }
 });
-
 
 albumsRouter.get('/:id', async (req, res) => {
   const id = req.params.id;

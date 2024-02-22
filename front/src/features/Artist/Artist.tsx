@@ -3,7 +3,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {artists} = useSelector((state: RootState) => state.artist);
+  const {artists,fetchLoad} = useSelector((state: RootState) => state.artist);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -26,7 +26,7 @@ const Artist = () => {
           sx={{gap: '10px'}}
         >
           {
-
+            fetchLoad ? <CircularProgress/> :
             artists.map(artist => {
               return (
                 <Box
