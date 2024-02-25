@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {artists,fetchLoad} = useSelector((state: RootState) => state.artist);
+  const {artists, fetchLoad} = useSelector((state: RootState) => state.artist);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -27,30 +27,30 @@ const Artist = () => {
         >
           {
             fetchLoad ? <CircularProgress/> :
-            artists.map(artist => {
-              return (
-                <Box
-                  key={artist._id}
-                >
-                  <Card
-                    sx={{width: 345}}
+              artists.map(artist => {
+                return (
+                  <Box
+                    key={artist._id}
                   >
-                    <CardMedia
-                      sx={{height: 240}}
-                      image={`http://localhost:8000/${artist.image}`} // ToDo написать проверку на то что изобр не будет
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {artist.name}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button component={Link} to={`/artist/${artist._id}`} size="small">Learn More</Button>
-                    </CardActions>
-                  </Card>
-                </Box>
-              );
-            })
+                    <Card
+                      sx={{width: 345}}
+                    >
+                      <CardMedia
+                        sx={{height: 240}}
+                        image={`http://localhost:8000/${artist.image}`} // ToDo написать проверку на то что изобр не будет
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          {artist.name}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button component={Link} to={`/artist/${artist._id}`} size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>
+                  </Box>
+                );
+              })
           }
         </Box>
 

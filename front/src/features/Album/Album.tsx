@@ -35,9 +35,7 @@ const Album = () => {
           sx={{gap: '10px'}}
         >
           {
-
             fetchLoad ? <CircularProgress/> :
-
               albums.map(album => {
                 return (
                   <Box

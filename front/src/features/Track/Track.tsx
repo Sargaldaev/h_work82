@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
@@ -12,9 +12,14 @@ const Track = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {albumsInfo} = useSelector((state: RootState) => state.album);
   const {tracks, fetchLoadTrack} = useSelector((state: RootState) => state.track);
+  const {user} = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
+    if (!user) {
+      navigate('/login');
+    }
     if (id) {
       dispatch(fetchDataTrack(id));
       dispatch(fetchDataAlbumInfo(id));

@@ -4,6 +4,8 @@ import Album from './features/Album/Album.tsx';
 import Track from './features/Track/Track.tsx';
 import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import AppToolbar from './components/AppToolbar/AppToolbar.tsx';
+import Register from './components/RegisterForm/RegisterForm.tsx';
+import Login from './components/LoginForm/LoginForm.tsx';
 
 function App() {
   const darkTheme = createTheme({
@@ -19,6 +21,8 @@ function App() {
         <Container>
           <Routes>
             <Route path={'/'} element={<Artist/>}/>
+            <Route path={'/register'} element={<Register/>}/>
+            <Route path={'/login'} element={<Login/>}/>
             <Route path="/artist/:id" element={<Album/>}/>
             <Route path="/albums/:id" element={<Track/>}/>
           </Routes>
