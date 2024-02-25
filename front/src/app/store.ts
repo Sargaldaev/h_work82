@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { artistReducer } from '../store/artist/artistsSlice.ts';
 import { albumReducer } from '../store/album/albumSlice.ts';
 import { trackReducer } from '../store/track/traksSlice.ts';
+import { historyTrackReducer } from '../store/trackHistory/trackHistorySlice.ts';
 
 const userPersistConfig = {
   key: 'song:user',
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   album: albumReducer,
   track: trackReducer,
+  trackHistory: historyTrackReducer,
 });
 
 export const store = configureStore({

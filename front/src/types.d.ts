@@ -29,6 +29,13 @@ export interface AlbumInfo {
   releaseYear: string;
 }
 
+export interface TrackHistory {
+  _id: string;
+  user: string;
+  track: Track;
+  datetime: string;
+}
+
 export interface Register {
   username: string;
   password: string;

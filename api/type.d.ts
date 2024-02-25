@@ -33,3 +33,24 @@ export interface Track_history {
   track: mongoose.Types.ObjectId;
   datetime: Date;
 }
+
+export interface TrackHistoryMutationOne {
+  _id: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
+  track: ITrackPost;
+  datetime: Date;
+}
+
+export interface TrackHistoryMutation {
+  _id: mongoose.Types.ObjectId;
+  user?: mongoose.Types.ObjectId;
+  track: ITrackMutation;
+  datetime: Date;
+}
+
+export interface AlbumsPostMutation {
+  name?: string;
+  artist: IArtistPost;
+  image?: string | null;
+  releaseYear?: number;
+}

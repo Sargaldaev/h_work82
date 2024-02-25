@@ -6,6 +6,7 @@ import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/materia
 import AppToolbar from './components/AppToolbar/AppToolbar.tsx';
 import Register from './components/RegisterForm/RegisterForm.tsx';
 import Login from './components/LoginForm/LoginForm.tsx';
+import TrackHistory from './features/TrackHistory/TrackHistory.tsx';
 
 function App() {
   const darkTheme = createTheme({
@@ -24,6 +25,7 @@ function App() {
             <Route path={'/register'} element={<Register/>}/>
             <Route path={'/login'} element={<Login/>}/>
             <Route path="/artist/:id" element={<Album/>}/>
+            <Route path="/Track_histories" element={<TrackHistory />} />
             <Route path="/albums/:id" element={<Track/>}/>
           </Routes>
         </Container>

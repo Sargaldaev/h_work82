@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { fetchDataTrack } from '../../store/track/trackThunk.ts';
 import { fetchDataAlbumInfo } from '../../store/album/albumThunk.ts';
 import Button from '@mui/material/Button';
+import { historyTrackPost } from '../../store/trackHistory/trackHistoryThunk.ts';
 
 const Track = () => {
   const {id} = useParams() as { id: string };
@@ -25,6 +26,10 @@ const Track = () => {
       dispatch(fetchDataAlbumInfo(id));
     }
   }, [dispatch, id]);
+
+  const onTrackHistory = (id: string) => {
+    dispatch(historyTrackPost(id));
+  };
   return (
     <>
       <Box>
@@ -85,7 +90,11 @@ const Track = () => {
                       sx={{bgcolor: 'green', padding: '4px', borderRadius: '10px', fontWeight: 'bold'}}>
                       {track.duration}
                     </Typography>
-
+                    {user ? (
+                      <Button variant="contained" color="primary" onClick={() => onTrackHistory(track._id)}>
+                        Play
+                      </Button>
+                    ) : null}
                   </Box>
                 );
               })
