@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
 import { fetchDataAlbum } from '../../store/album/albumThunk.ts';
 import { Link, useParams } from 'react-router-dom';
+import img from '../../assets/img.jpeg';
 
 const Album = () => {
   const {id} = useParams() as { id: string };
@@ -44,10 +45,17 @@ const Album = () => {
                     <Card
                       sx={{width: 345}}
                     >
-                      <CardMedia
-                        sx={{height: 240}}
-                        image={`http://localhost:8000/${album.image}`} // ToDo написать проверку на то что изобр не будет
-                      />
+                      {album.image ? (
+                        <CardMedia
+                          sx={{height: 350}}
+                          image={`http://localhost:8000/${album.image}`}
+                        />
+                      ) : (
+                        <CardMedia
+                          sx={{height: 350}}
+                          image={img}
+                        />
+                      )}
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                           {album.name}

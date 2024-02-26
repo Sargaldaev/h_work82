@@ -27,7 +27,7 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         color: 'text.primary',
-        mb: 1,
+        mb: 3,
         borderBottom: '1px solid white',
       }}
     >
@@ -47,12 +47,19 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
         </Typography>
       </Box>
 
-      <Typography variant="body1" sx={{bgcolor: 'primary.main'}}>
+      <Typography variant="body1" sx={{bgcolor: 'green',borderRadius:'10px',padding:'3px'}}>
         {track.duration}
       </Typography>
 
       {user ? (
-        <Button variant="contained" color="primary" onClick={click}>
+        <Button
+          variant="contained"
+          sx={{bgcolor: 'green',
+               borderRadius:'10px',
+               color:'white',
+               padding:'3px'}}
+          onClick={click}
+        >
           Play
         </Button>
       ) : null}

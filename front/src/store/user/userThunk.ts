@@ -23,10 +23,12 @@ export const login = createAsyncThunk<User, Login, { rejectValue: GlobalError }>
   async (userLogin, {rejectWithValue}) => {
     try {
       const {data} = await axiosApi.post<User>('/users/sessions', userLogin);
+
       return data;
     } catch (e) {
-      if (isAxiosError(e) && e.response && e.response.status === 422) {
-        return rejectWithValue(e.response.data);
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+
+        return rejectWithValue(e.response.data as GlobalError);
       }
       throw e;
     }

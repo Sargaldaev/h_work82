@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { historyTrackData } from '../../store/trackHistory/trackHistoryThunk.ts';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import dayjs from 'dayjs';
 import { Grid, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 
 
 const TrackHistory = () => {
@@ -24,6 +25,7 @@ const TrackHistory = () => {
 
   return (
     <>
+      <Button component={Link} to={`/`} size="small">Back</Button>
       {!trackHistory.length ? (
         <Typography variant="h6" align="center" className="text-white fw-bold">
           Your story list is empty

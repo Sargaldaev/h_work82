@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Album, AlbumInfo } from '../../types';
 import { fetchDataAlbum, fetchDataAlbumInfo } from './albumThunk.ts';
 
@@ -22,7 +22,7 @@ export const albumSlice = createSlice({
     builder.addCase(fetchDataAlbum.pending, (state: ArtistState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(fetchDataAlbum.fulfilled, (state: ArtistState, action) => {
+    builder.addCase(fetchDataAlbum.fulfilled, (state: ArtistState, action: PayloadAction<Album[]>) => {
       state.fetchLoad = false;
       state.albums = action.payload;
     });
@@ -33,7 +33,7 @@ export const albumSlice = createSlice({
     builder.addCase(fetchDataAlbumInfo.pending, (state: ArtistState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(fetchDataAlbumInfo.fulfilled, (state: ArtistState, action) => {
+    builder.addCase(fetchDataAlbumInfo.fulfilled, (state: ArtistState, action: PayloadAction<AlbumInfo>) => {
       state.fetchLoad = false;
       state.albumsInfo = action.payload || null;
     });

@@ -8,7 +8,7 @@ interface Props {
 const YouTube: React.FC<Props> = ({ src, autoPlay }) => {
   return (
     <iframe
-      width="450"
+      width="400"
       height="250"
       src={src + (autoPlay && '&autoplay=1')}
       title="YouTube video player"

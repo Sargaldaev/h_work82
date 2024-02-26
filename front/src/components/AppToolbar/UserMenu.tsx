@@ -6,14 +6,15 @@ import YouTube from '../Youtube/Youtube.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import { onClose } from '../../store/track/traksSlice.ts';
+import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 
 interface Props {
   user: User;
 }
 
-const UserMenu: React.FC<Props> = ({ user }) => {
+const UserMenu: React.FC<Props> = ({user}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { urlYoutube } = useSelector((state: RootState) => state.track);
+  const {urlYoutube} = useSelector((state: RootState) => state.track);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,7 +32,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       </Button>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>
-          <Link to="/Track_histories" style={{ color: 'white', textDecoration: 'none' }}>
+          <Link to="/Track_histories" style={{color: 'white', textDecoration: 'none'}}>
             Track histories
           </Link>
         </MenuItem>
@@ -41,9 +42,8 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         <Box
           sx={{
             position: 'fixed',
-            top: '35%',
-            right: '45%',
-            transform: 'translate(50%, -50%)',
+            top: 200,
+            right: 280,
           }}
         >
           <Button
@@ -57,10 +57,22 @@ const UserMenu: React.FC<Props> = ({ user }) => {
               color: '#fff',
             }}
           >
-            Close
+            <Box
+              sx={
+                {
+                  position: 'absolute',
+                  top: -10,
+                  right: -10,
+                  background:'maroon',
+                  width:'24px',
+                  height:'24px'
+                }
+              }
+            >
+              <CloseSharpIcon/>
+            </Box>
           </Button>
-
-          <YouTube autoPlay src={urlYoutube} />
+          <YouTube autoPlay src={urlYoutube}/>
         </Box>
       )}
     </>

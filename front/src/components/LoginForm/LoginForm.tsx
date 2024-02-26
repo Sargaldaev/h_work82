@@ -12,7 +12,7 @@ import { login } from '../../store/user/userThunk';
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loginError: error, loginLoad } = useSelector((state: RootState) => state.user);
+  const {loginError: error, loginLoad} = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [users, setUsers] = useState<Login>({
     username: '',
@@ -21,7 +21,7 @@ const Login = () => {
   const defaultTheme = createTheme();
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     setUsers((prevState) => ({
       ...prevState,
       [name]: value,
@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        <CssBaseline/>
         <Box
           sx={{
             marginTop: 8,
@@ -51,20 +51,20 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+            <LockOutlinedIcon/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box sx={{ pt: 2 }}>
+          <Box sx={{pt: 2}}>
           </Box>
           {error && (
-            <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+            <Alert severity="error" sx={{mt: 3, width: '100%'}}>
               {error.error}
             </Alert>
           )}
-          <Box component="form" noValidate onSubmit={submitFormHandler} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -94,10 +94,10 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{mt: 3, mb: 2}}
               disabled={!!loginLoad}
             >
-              {loginLoad ? <CircularProgress /> : 'Sign In'}
+              {loginLoad ? <CircularProgress/> : 'Sign In'}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

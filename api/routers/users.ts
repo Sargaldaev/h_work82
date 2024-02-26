@@ -1,6 +1,6 @@
 import express from 'express';
 import User from '../models/User';
-import {Error} from 'mongoose';
+import mongoose, {Error} from 'mongoose';
 
 const usersRouter = express.Router();
 
@@ -25,27 +25,31 @@ usersRouter.post('/', async (req, res, next) => {
 });
 
 
-usersRouter.post('/sessions', async (req, res) => {
-  const user = await User.findOne({username: req.body.username});
+usersRouter.post('/sessions', async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.status(400).send({ error: 'Wrong username or password ' });
+    }
+    if (!req.body.password) {
+      return res.status(400).send({ error: 'Wrong username or password' });
+    }
 
-  if (!user) {
-    return res.status(400).send({error: 'Password or Username wrong'});
+    const isMatch = await user.checkPassword(req.body.password);
+
+    if (!isMatch) {
+      return res.status(400).send({ error: 'Wrong username or password ' });
+    }
+
+    user.generateToken();
+    await user.save();
+
+    res.send(user);
+  } catch (e) {
+    if (e instanceof Error.ValidationError) {
+      return res.status(422).send(e);
+    }
+    next(e);
   }
-
-  if (!req.body.password) {
-    return res.status(400).send({error: 'Password required'});
-  }
-
-  const isMatch = await user.checkPassword(req.body.password);
-
-  if (!isMatch) {
-    return res.status(400).send({error: 'Password or Username wrong'});
-  }
-
-  user.generateToken();
-  await user.save();
-
-  return res.send(user);
-
 });
 export default usersRouter;

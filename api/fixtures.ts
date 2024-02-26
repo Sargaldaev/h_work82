@@ -23,17 +23,17 @@ const run = async () => {
   const [Weeknd, FiftyСent, V_$_X_VPRiNCE] = await Artist.create(
     {
       name: 'The Weeknd',
-      image: 'fixtures/TheWeeknd.jpeg',
+      image: 'fixtures/weeknd.jpeg',
       description: 'Best Singer...',
     },
     {
       name: '50 Cent',
-      image: 'fixtures/50Cent.jpeg',
+      image: 'fixtures/50-cent.jpg',
       description: '50 Cent (Curtis James Jackson) is an American rapper',
     },
     {
       name: 'V_$_X_VPRiNCE',
-      image: 'fixtures/Prince.jpg',
+      image: 'fixtures/prince.png',
       description: 'V_$_X_VPRiNCE rapper',
     },
   );
@@ -42,13 +42,13 @@ const run = async () => {
     {
       name: 'After Hours',
       artist: Weeknd._id,
-      image: 'fixtures/WeekndAlbum2020.jpeg',
+      image: 'fixtures/afterHouse.jpg',
       releaseYear: 2020,
     },
     {
       name: 'Starboy',
       artist: Weeknd._id,
-      image: 'fixtures/WeekndAlbum2016.jpeg',
+      image: 'fixtures/starboy.jpg',
       releaseYear: 2016,
     },
     {
@@ -66,7 +66,7 @@ const run = async () => {
     {
       name: 'NOVЫЙ',
       artist: V_$_X_VPRiNCE._id,
-      image: 'fixtures/NOVЫЙ.jpg',
+      image: 'fixtures/new.jpg',
       releaseYear: 2022,
     },
   );
@@ -162,27 +162,27 @@ const run = async () => {
       album: GetRichOrDieTryin._id,
       duration: '3:13',
       songNumber: 1,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/5nyhlO8Rkxk?si=WsAroxpWAs6hhJ58',
     },
     {
       name: 'P.I.M.P',
       album: GetRichOrDieTryin._id,
       duration: '4:09',
       songNumber: 2,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/UDApZhXTpH8?si=EvIUxf4XL6onHo2_',
     },
     {
-      name: 'Blood Hound',
+        name: 'Blood Hound',
       album: GetRichOrDieTryin._id,
       duration: '4:00',
       songNumber: 3,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/NI4unDKISMY?si=BpTHfXW58K2x1p5Q',
     },
     {
       name: 'In Da Club',
       album: GetRichOrDieTryin._id,
       duration: '3:14',
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/5qm8PH4xAss?si=KLa45bHsT55kqFeK',
       songNumber: 4,
     },
     {
@@ -190,14 +190,14 @@ const run = async () => {
       album: GetRichOrDieTryin._id,
       duration: '4:09',
       songNumber: 5,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/isEgT3FpOYY?si=tuUUxVojcoMF-ZmJ',
     },
 
     {
       name: 'Candy Shop',
       album: TheMassacre._id,
       duration: '3:29',
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/SRcnnId15BA?si=wGRXEwkHD7C8J7cn',
       songNumber: 1,
     },
     {
@@ -205,28 +205,28 @@ const run = async () => {
       album: TheMassacre._id,
       duration: '3:44',
       songNumber: 2,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/yYrSo1FE6_Q?si=_giRproI7COhloKw',
     },
     {
       name: 'Position Of Power',
       album: TheMassacre._id,
       duration: '3:12',
       songNumber: 3,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/5EsL3sTDuQo?si=gPzoyudsr-_nTMly',
     },
     {
       name: 'So Amazing',
       album: TheMassacre._id,
       duration: '3:17',
       songNumber: 4,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/_8Lxczo13Oo?si=ViB_TpzKF7woY5Di',
     },
     {
       name: 'Gatman and Robbin',
       album: TheMassacre._id,
       duration: '1:25',
       songNumber: 5,
-      youTube: 'https://www.youtube.com/embed/oW3x-hmg3Qc?si=V1fMb43WNThjmgUO',
+      youTube: 'https://www.youtube.com/embed/vhjEfkrESJc?si=WUxFCRH4OJPJUgde',
     },
 
     {

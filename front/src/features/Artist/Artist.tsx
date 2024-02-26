@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
 import { fetchData } from '../../store/artist/artistThunk.ts';
 import { Link } from 'react-router-dom';
+import img from '..///../assets/img.jpeg';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,10 +36,18 @@ const Artist = () => {
                     <Card
                       sx={{width: 345}}
                     >
-                      <CardMedia
-                        sx={{height: 240}}
-                        image={`http://localhost:8000/${artist.image}`} // ToDo написать проверку на то что изобр не будет
-                      />
+
+                      {artist.image ? (
+                        <CardMedia
+                          sx={{height: 350}}
+                          image={`http://localhost:8000/${artist.image}`}
+                        />
+                      ) : (
+                        <CardMedia
+                          sx={{height: 350}}
+                          image={img}
+                        />
+                      )}
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                           {artist.name}

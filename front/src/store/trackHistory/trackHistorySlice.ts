@@ -1,5 +1,5 @@
 import { TrackHistory } from '../../types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { historyTrackData } from './trackHistoryThunk.ts';
 
 export interface historyTrackState {
@@ -15,7 +15,7 @@ export const historyTrackSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(historyTrackData.fulfilled, (state: historyTrackState, action) => {
+    builder.addCase(historyTrackData.fulfilled, (state: historyTrackState, action: PayloadAction<TrackHistory[]>) => {
       state.trackHistory = action.payload;
     });
 

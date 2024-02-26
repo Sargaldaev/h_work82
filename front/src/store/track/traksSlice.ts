@@ -1,5 +1,5 @@
 import { Track } from '../../types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchDataTrack } from './trackThunk';
 
 export interface TrackState {
@@ -30,7 +30,7 @@ export const trackSlice = createSlice({
     builder.addCase(fetchDataTrack.pending, (state: TrackState) => {
       state.fetchLoadTrack = true;
     });
-    builder.addCase(fetchDataTrack.fulfilled, (state: TrackState, action) => {
+    builder.addCase(fetchDataTrack.fulfilled, (state: TrackState, action: PayloadAction<Track[]>) => {
       state.fetchLoadTrack = false;
       state.tracks = action.payload;
     });
@@ -41,4 +41,4 @@ export const trackSlice = createSlice({
 });
 
 export const trackReducer = trackSlice.reducer;
-export const { onPlayYouTube, onClose } = trackSlice.actions;
+export const {onPlayYouTube, onClose} = trackSlice.actions;

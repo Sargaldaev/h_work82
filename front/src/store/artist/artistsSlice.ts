@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchData } from './artistThunk.ts';
 import { Artist } from '../../types';
 
@@ -21,7 +21,7 @@ export const artistSlice = createSlice({
       state.fetchLoad = true;
     });
 
-    builder.addCase(fetchData.fulfilled, (state: ArtistState, action) => {
+    builder.addCase(fetchData.fulfilled, (state: ArtistState, action:PayloadAction<Artist[]>) => {
       state.fetchLoad = false;
       state.artists = action.payload;
     });
