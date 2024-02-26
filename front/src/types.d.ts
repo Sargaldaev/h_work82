@@ -18,6 +18,7 @@ export interface Track {
   album: Album;
   duration: string;
   songNumber: number;
+  youTube:string
 }
 
 

@@ -25,6 +25,7 @@ export interface TrackCreate {
   album: Schema.Types.ObjectId;
   duration: string;
   songNumber:number;
+  youTube: string;
 }
 
 

@@ -7,6 +7,7 @@ import AppToolbar from './components/AppToolbar/AppToolbar.tsx';
 import Register from './components/RegisterForm/RegisterForm.tsx';
 import Login from './components/LoginForm/LoginForm.tsx';
 import TrackHistory from './features/TrackHistory/TrackHistory.tsx';
+import React from 'react';
 
 function App() {
   const darkTheme = createTheme({
@@ -33,5 +34,7 @@ function App() {
     </>
   );
 }
+
+
 
 export default App;

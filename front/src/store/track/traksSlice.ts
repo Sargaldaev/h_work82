@@ -4,18 +4,28 @@ import { fetchDataTrack } from './trackThunk';
 
 export interface TrackState {
   tracks: Track[];
+  urlYoutube: string;
   fetchLoadTrack: boolean;
 }
 
 const initialState: TrackState = {
   tracks: [],
+  urlYoutube: '',
   fetchLoadTrack: false,
 };
 
 export const trackSlice = createSlice({
   name: 'track',
   initialState,
-  reducers: {},
+  reducers: {
+    onPlayYouTube: (state, action) => {
+      state.urlYoutube = action.payload;
+    },
+
+    onClose: (state) => {
+      state.urlYoutube = '';
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchDataTrack.pending, (state: TrackState) => {
       state.fetchLoadTrack = true;
@@ -31,3 +41,4 @@ export const trackSlice = createSlice({
 });
 
 export const trackReducer = trackSlice.reducer;
+export const { onPlayYouTube, onClose } = trackSlice.actions;

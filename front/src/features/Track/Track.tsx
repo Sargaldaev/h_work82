@@ -7,6 +7,7 @@ import { fetchDataTrack } from '../../store/track/trackThunk.ts';
 import { fetchDataAlbumInfo } from '../../store/album/albumThunk.ts';
 import Button from '@mui/material/Button';
 import { historyTrackPost } from '../../store/trackHistory/trackHistoryThunk.ts';
+import TracksItem from './TrackItem.tsx';
 
 const Track = () => {
   const {id} = useParams() as { id: string };
@@ -25,11 +26,12 @@ const Track = () => {
       dispatch(fetchDataTrack(id));
       dispatch(fetchDataAlbumInfo(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, navigate, user]);
 
-  const onTrackHistory = (id: string) => {
+  const onTrackHistory = async (id: string) => {
     dispatch(historyTrackPost(id));
   };
+
   return (
     <>
       <Box>
@@ -54,51 +56,17 @@ const Track = () => {
 
         <Box
         >
-          {
-            fetchLoadTrack ? <CircularProgress/> :
-              tracks.map(track => {
-                return (
-                  <Box
-                    key={track._id}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      color: 'text.primary',
-                      mb: 1,
-                      borderBottom: '1px solid white',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '35px',
-                      }}
-                    >
-                      <Typography variant="body1" fontWeight="bold" sx={{ms: 2}}>
-                        {track.songNumber}
-                      </Typography>
-
-                      <Typography variant="body1" fontWeight="bold">
-                        {track.name}
-                      </Typography>
-                    </Box>
-
-                    <Typography
-                      variant="body1"
-                      sx={{bgcolor: 'green', padding: '4px', borderRadius: '10px', fontWeight: 'bold'}}>
-                      {track.duration}
-                    </Typography>
-                    {user ? (
-                      <Button variant="contained" color="primary" onClick={() => onTrackHistory(track._id)}>
-                        Play
-                      </Button>
-                    ) : null}
-                  </Box>
-                );
-              })
-          }
+          {fetchLoadTrack ? (
+            <CircularProgress/>
+          ) : (
+            tracks.map((track) =>
+              <TracksItem
+                key={track._id}
+                track={track}
+                onTrackHistory={() => onTrackHistory(track._id)}
+              />
+            )
+          )}
         </Box>
 
       </Box>
