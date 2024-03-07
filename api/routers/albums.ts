@@ -2,10 +2,12 @@ import express from 'express';
 import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 import Album from '../models/Album';
+import auth from '../middleware/auth';
+import permit from '../middleware/permit';
 
 const albumsRouter = express.Router();
 
-albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
+albumsRouter.post('/',auth, imagesUpload.single('image'), async (req, res, next) => {
 
   try {
     const saveAlbum = new Album({
@@ -49,6 +51,42 @@ albumsRouter.get('/:id', async (req, res) => {
     return res.send(album);
   } catch (e) {
     res.send(e);
+  }
+});
+
+albumsRouter.delete('/:id', auth, permit('admin'),async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const albumDelete = await Album.findByIdAndDelete(_id);
+    if (!albumDelete) {
+      return res.status(404).send({ message: 'Album not found' });
+
+    }
+    return res.send({ message: 'Album deleted' });
+  } catch (e) {
+    return  res.send(e);
+  }
+});
+
+albumsRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const albumId = await Album.findOne({ _id });
+
+    if (!albumId) {
+      return res.status(404).send({ message: 'Album not found' });
+    }
+    if (albumId.isPublished === false) {
+      await Album.findOneAndUpdate({ _id }, { isPublished: true });
+      return res.send({ message: 'Album updated' });
+    } else {
+      await Album.findOneAndUpdate({ _id }, { isPublished: false });
+      return res.send({ message: 'Album updated' });
+    }
+  } catch (e) {
+    return res.send(e);
   }
 });
 

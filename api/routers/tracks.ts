@@ -2,10 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Track from '../models/Track';
 import Album from '../models/Album';
+import auth from '../middleware/auth';
+import permit from '../middleware/permit';
 
 const tracksRouter = express.Router();
 
-tracksRouter.post('/', async (req, res, next) => {
+tracksRouter.post('/', auth,async (req, res, next) => {
   try {
     const saveTrack = new Track({
       name: req.body.name,
@@ -50,6 +52,43 @@ tracksRouter.get('/:id', async (req, res) => {
     return res.send(track);
   } catch (e) {
     res.send(e);
+  }
+});
+
+
+tracksRouter.delete('/:id', auth, permit('admin'),async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const trackDelete = await Track.findByIdAndDelete(_id);
+    if (!trackDelete) {
+      return res.status(404).send({ message: 'Track not found' });
+
+    }
+    return res.send({ message: 'Track deleted' });
+  } catch (e) {
+    return  res.send(e);
+  }
+});
+
+tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const trackId = await Track.findOne({ _id });
+
+    if (!trackId) {
+      return res.status(404).send({ message: 'Track not found' });
+    }
+    if (trackId.isPublished === false) {
+      await Track.findOneAndUpdate({ _id }, { isPublished: true });
+      return res.send({ message: 'Track updated' });
+    } else {
+      await Track.findOneAndUpdate({ _id }, { isPublished: false });
+      return res.send({ message: 'Track updated' });
+    }
+  } catch (e) {
+    return res.send(e);
   }
 });
 
