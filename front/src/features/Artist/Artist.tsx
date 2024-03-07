@@ -9,7 +9,6 @@ import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
 import { fetchData } from '../../store/artist/artistThunk.ts';
 import { Link } from 'react-router-dom';
-import img from '..///../assets/img.jpeg';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,7 +44,7 @@ const Artist = () => {
                       ) : (
                         <CardMedia
                           sx={{height: 350}}
-                          image={img}
+                          image={'img'}
                         />
                       )}
                       <CardContent>

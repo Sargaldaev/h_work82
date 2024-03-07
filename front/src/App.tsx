@@ -27,6 +27,7 @@ function App() {
             <Route path="/artist/:id" element={<Album/>}/>
             <Route path="/Track_histories" element={<TrackHistory/>}/>
             <Route path="/albums/:id" element={<Track/>}/>
+            <Route path="*" element={<h1>Not Found</h1>}/>
           </Routes>
         </Container>
       </ThemeProvider>

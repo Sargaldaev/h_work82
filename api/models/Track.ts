@@ -31,6 +31,11 @@ const TrackSchema = new Schema({
     type: String,
     required: true,
   },
+
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Track = mongoose.model('Track', TrackSchema);

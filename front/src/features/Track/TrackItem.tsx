@@ -27,8 +27,9 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         color: 'text.primary',
-        mb: 3,
+        mb: 4,
         borderBottom: '1px solid white',
+        padding:'1px'
       }}
     >
       <Box
@@ -47,22 +48,29 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
         </Typography>
       </Box>
 
-      <Typography variant="body1" sx={{bgcolor: 'green',borderRadius:'10px',padding:'3px'}}>
-        {track.duration}
-      </Typography>
+      <Box
+        display={'flex'}
+      >
 
-      {user ? (
-        <Button
-          variant="contained"
-          sx={{bgcolor: 'green',
-               borderRadius:'10px',
-               color:'white',
-               padding:'3px'}}
-          onClick={click}
-        >
-          Play
-        </Button>
-      ) : null}
+        <Typography variant="body1"  sx={{borderRadius: '10px', border:'1px solid white', padding: '5px',marginRight:'5px'}}>
+          {track.duration}
+        </Typography>
+        {user ? (
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: 'green',
+              borderRadius: '10px',
+              color: 'white',
+              padding: '3px'
+            }}
+            onClick={click}
+          >
+            Play
+          </Button>
+        ) : null}
+      </Box>
+
     </Box>
   );
 };

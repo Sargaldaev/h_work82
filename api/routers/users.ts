@@ -1,6 +1,7 @@
 import express from 'express';
-import User from '../models/User';
-import mongoose, {Error} from 'mongoose';
+import User, { UserMethods } from '../models/User';
+import mongoose, { Error, HydratedDocument } from 'mongoose';
+import auth, { RequestWithUser } from '../middleware/auth';
 
 const usersRouter = express.Router();
 
@@ -8,7 +9,7 @@ usersRouter.post('/', async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
     });
 
     user.generateToken();
@@ -16,14 +17,12 @@ usersRouter.post('/', async (req, res, next) => {
     await user.save();
     return res.send(user);
   } catch (error) {
-
     if (error instanceof Error.ValidationError) {
       return res.status(422).send(error);
     }
     return next(error);
   }
 });
-
 
 usersRouter.post('/sessions', async (req, res, next) => {
   try {
@@ -52,4 +51,17 @@ usersRouter.post('/sessions', async (req, res, next) => {
     next(e);
   }
 });
+
+usersRouter.delete('/sessions', auth, async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user as HydratedDocument<UserMethods>;
+    user.generateToken();
+    user.save();
+
+    return res.send({ message: 'SUCCESS' });
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default usersRouter;

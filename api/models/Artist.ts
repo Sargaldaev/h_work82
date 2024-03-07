@@ -13,6 +13,10 @@ const ArtistSchema = new Schema({
   },
   description: {
     type: String
+  },
+  isPublished : {
+    type:Boolean,
+    default:false
   }
 });
 

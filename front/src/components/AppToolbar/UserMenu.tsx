@@ -43,7 +43,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
           sx={{
             position: 'fixed',
             top: 200,
-            right: 280,
+            right: 350,
           }}
         >
           <Button

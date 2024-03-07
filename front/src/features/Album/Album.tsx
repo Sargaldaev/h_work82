@@ -9,7 +9,6 @@ import { AppDispatch, RootState } from '../../app/store.ts';
 import { useEffect } from 'react';
 import { fetchDataAlbum } from '../../store/album/albumThunk.ts';
 import { Link, useParams } from 'react-router-dom';
-import img from '../../assets/img.jpeg';
 
 const Album = () => {
   const {id} = useParams() as { id: string };
@@ -53,7 +52,7 @@ const Album = () => {
                       ) : (
                         <CardMedia
                           sx={{height: 350}}
-                          image={img}
+                          image={',ll'}
                         />
                       )}
                       <CardContent>

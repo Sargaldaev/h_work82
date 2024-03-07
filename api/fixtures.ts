@@ -25,16 +25,19 @@ const run = async () => {
       name: 'The Weeknd',
       image: 'fixtures/weeknd.jpeg',
       description: 'Best Singer...',
+      isPublished: true,
     },
     {
       name: '50 Cent',
       image: 'fixtures/50-cent.jpg',
       description: '50 Cent (Curtis James Jackson) is an American rapper',
+      isPublished: true,
     },
     {
       name: 'V_$_X_VPRiNCE',
       image: 'fixtures/prince.png',
       description: 'V_$_X_VPRiNCE rapper',
+      isPublished: true,
     },
   );
 
@@ -43,30 +46,35 @@ const run = async () => {
       name: 'After Hours',
       artist: Weeknd._id,
       image: 'fixtures/afterHouse.jpg',
+      isPublished: true,
       releaseYear: 2020,
     },
     {
       name: 'Starboy',
       artist: Weeknd._id,
       image: 'fixtures/starboy.jpg',
+      isPublished: true,
       releaseYear: 2016,
     },
     {
       name: 'Get Rich or Die Tryin',
       artist: FiftyСent._id,
-      image: 'fixtures/50CentAlbum2003.jpeg',
+      image: 'fixtures/GetRichorDieTryin.png',
+      isPublished: true,
       releaseYear: 2003,
     },
     {
       name: 'The Massacre',
       artist: FiftyСent._id,
-      image: 'fixtures/50CentAlbum2005.jpeg',
+      image: 'fixtures/TheMassacre.jpeg',
+      isPublished: true,
       releaseYear: 2005,
     },
     {
       name: 'NOVЫЙ',
       artist: V_$_X_VPRiNCE._id,
       image: 'fixtures/new.jpg',
+      isPublished: true,
       releaseYear: 2022,
     },
   );
@@ -75,12 +83,14 @@ const run = async () => {
     {
       username: 'User',
       password: '123',
+      role: 'user',
       token: crypto.randomUUID(),
     },
     {
       username: 'Admin',
       password: '153',
-      token: crypto.randomUUID()
+      role: 'admin',
+      token: crypto.randomUUID(),
     },
   );
 
@@ -90,6 +100,7 @@ const run = async () => {
       album: Starboy._id,
       duration: '3:50',
       songNumber: 10,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/34Na4j8AVgA?si=XXEnjbnaNWpsgJCu',
     },
     {
@@ -97,6 +108,7 @@ const run = async () => {
       album: Starboy._id,
       duration: '5:21',
       songNumber: 15,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/4iSEJB1KJ0w?si=0qDFemnggJJLTFSd',
     },
     {
@@ -104,6 +116,7 @@ const run = async () => {
       album: Starboy._id,
       duration: '3:51',
       songNumber: 3,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/sK-T-cmznY8?si=r_HiQ8X-wB0l5f9m',
     },
     {
@@ -111,6 +124,7 @@ const run = async () => {
       album: Starboy._id,
       duration: '3:58',
       songNumber: 4,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/Yu7kHJqKRW8?si=BeXs440RKHaGC2XF',
     },
     {
@@ -118,12 +132,14 @@ const run = async () => {
       album: Starboy._id,
       duration: '1:25',
       songNumber: 5,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/JZjAg6fK-BQ?si=CvJ80GowyiR093PZ',
     },
 
     {
       name: 'Blinding Lights',
       album: AfterHours._id,
+      isPublished: true,
       duration: '3:20',
       songNumber: 1,
       youTube: 'https://www.youtube.com/embed/4NRXx6U8ABQ?si=r2DJiiRw87ggGGJS',
@@ -133,6 +149,7 @@ const run = async () => {
       album: AfterHours._id,
       duration: '4:00',
       songNumber: 2,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/nl71vFvVOvw?si=ZQcKLG96zhkWyVzA',
     },
     {
@@ -140,6 +157,7 @@ const run = async () => {
       album: AfterHours._id,
       duration: '3:36',
       songNumber: 3,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/s37x2VSZrLw?si=F5zihiLUZgMuvJ3I',
     },
     {
@@ -147,12 +165,14 @@ const run = async () => {
       album: AfterHours._id,
       duration: '3:58',
       youTube: 'https://www.youtube.com/embed/E3QiD99jPAg?si=E2soJECs3wHmS_X-',
+      isPublished: true,
       songNumber: 4,
     },
     {
       name: 'Alone Again',
       album: AfterHours._id,
       duration: '4:10',
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/JH398xAYpZA?si=lIpbBbz6OXkTv50J',
       songNumber: 5,
     },
@@ -162,6 +182,7 @@ const run = async () => {
       album: GetRichOrDieTryin._id,
       duration: '3:13',
       songNumber: 1,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/5nyhlO8Rkxk?si=WsAroxpWAs6hhJ58',
     },
     {
@@ -169,13 +190,15 @@ const run = async () => {
       album: GetRichOrDieTryin._id,
       duration: '4:09',
       songNumber: 2,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/UDApZhXTpH8?si=EvIUxf4XL6onHo2_',
     },
     {
-        name: 'Blood Hound',
+      name: 'Blood Hound',
       album: GetRichOrDieTryin._id,
       duration: '4:00',
       songNumber: 3,
+      isPublished: true,
       youTube: 'https://www.youtube.com/embed/NI4unDKISMY?si=BpTHfXW58K2x1p5Q',
     },
     {
@@ -184,6 +207,7 @@ const run = async () => {
       duration: '3:14',
       youTube: 'https://www.youtube.com/embed/5qm8PH4xAss?si=KLa45bHsT55kqFeK',
       songNumber: 4,
+      isPublished: true,
     },
     {
       name: 'Dont Push Me',
@@ -191,6 +215,7 @@ const run = async () => {
       duration: '4:09',
       songNumber: 5,
       youTube: 'https://www.youtube.com/embed/isEgT3FpOYY?si=tuUUxVojcoMF-ZmJ',
+      isPublished: true,
     },
 
     {
@@ -199,6 +224,7 @@ const run = async () => {
       duration: '3:29',
       youTube: 'https://www.youtube.com/embed/SRcnnId15BA?si=wGRXEwkHD7C8J7cn',
       songNumber: 1,
+      isPublished: true,
     },
     {
       name: 'My Toy Soldier',
@@ -206,6 +232,7 @@ const run = async () => {
       duration: '3:44',
       songNumber: 2,
       youTube: 'https://www.youtube.com/embed/yYrSo1FE6_Q?si=_giRproI7COhloKw',
+      isPublished: true,
     },
     {
       name: 'Position Of Power',
@@ -213,6 +240,7 @@ const run = async () => {
       duration: '3:12',
       songNumber: 3,
       youTube: 'https://www.youtube.com/embed/5EsL3sTDuQo?si=gPzoyudsr-_nTMly',
+      isPublished: true,
     },
     {
       name: 'So Amazing',
@@ -220,6 +248,7 @@ const run = async () => {
       duration: '3:17',
       songNumber: 4,
       youTube: 'https://www.youtube.com/embed/_8Lxczo13Oo?si=ViB_TpzKF7woY5Di',
+      isPublished: true,
     },
     {
       name: 'Gatman and Robbin',
@@ -227,6 +256,7 @@ const run = async () => {
       duration: '1:25',
       songNumber: 5,
       youTube: 'https://www.youtube.com/embed/vhjEfkrESJc?si=WUxFCRH4OJPJUgde',
+      isPublished: true,
     },
 
     {
@@ -235,6 +265,7 @@ const run = async () => {
       duration: '2:39',
       songNumber: 6,
       youTube: 'https://www.youtube.com/embed/TxMWAWjCbbY?si=NC_WBC3GMbpKiwC4',
+      isPublished: true,
     },
 
     {
@@ -243,6 +274,7 @@ const run = async () => {
       duration: '3:05',
       songNumber: 7,
       youTube: 'https://www.youtube.com/embed/yDpPtslNp84?si=gCkAaZVmD63Cy1mO',
+      isPublished: true,
     },
 
     {
@@ -251,6 +283,7 @@ const run = async () => {
       duration: '2:54',
       songNumber: 10,
       youTube: 'https://www.youtube.com/embed/ukoW1djy39Y?si=_ap-kRuwdlJp4CUd',
+      isPublished: true,
     },
   );
   await db.close();

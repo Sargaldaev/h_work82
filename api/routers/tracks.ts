@@ -1,5 +1,4 @@
 import express from 'express';
-import {TrackCreate} from '../type';
 import mongoose from 'mongoose';
 import Track from '../models/Track';
 import Album from '../models/Album';
@@ -7,17 +6,14 @@ import Album from '../models/Album';
 const tracksRouter = express.Router();
 
 tracksRouter.post('/', async (req, res, next) => {
-
-  const track: TrackCreate = {
-    name: req.body.name,
-    album: req.body.album,
-    duration: req.body.duration,
-    songNumber: req.body.songNumber,
-    youTube: req.body.youTube,
-  };
-
   try {
-    const saveTrack = new Track(track);
+    const saveTrack = new Track({
+      name: req.body.name,
+      album: req.body.album,
+      duration: req.body.duration,
+      songNumber: req.body.songNumber,
+      youTube: req.body.youTube,
+    });
     await saveTrack.save();
     res.send(saveTrack);
   } catch (e) {
@@ -28,14 +24,12 @@ tracksRouter.post('/', async (req, res, next) => {
   }
 });
 
-
 tracksRouter.get('/', async (req, res) => {
-
   const album = req.query.album;
 
   try {
     if (album) {
-      const tracks = await Track.find({album}).sort({ songNumber: 1 });
+      const tracks = await Track.find({ album }).sort({ songNumber: 1 });
       return res.send(tracks);
     }
     const tracks = await Track.find();
@@ -45,21 +39,18 @@ tracksRouter.get('/', async (req, res) => {
   }
 });
 
-
 tracksRouter.get('/:id', async (req, res) => {
   const artist = req.params.id;
   try {
-    const album = await Album.find({artist});
+    const album = await Album.find({ artist });
     if (album.length === 0) {
-      return res.send('not found')
+      return res.send('not found');
     }
-    const track = await Track.find({album});
+    const track = await Track.find({ album });
     return res.send(track);
-
   } catch (e) {
     res.send(e);
   }
 });
-
 
 export default tracksRouter;
