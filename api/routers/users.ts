@@ -56,7 +56,7 @@ usersRouter.delete('/sessions', auth, async (req, res, next) => {
   try {
     const user = (req as RequestWithUser).user as HydratedDocument<UserMethods>;
     user.generateToken();
-    user.save();
+    await user.save();
 
     return res.send({ message: 'SUCCESS' });
   } catch (e) {

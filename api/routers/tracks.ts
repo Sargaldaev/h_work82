@@ -2,8 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Track from '../models/Track';
 import Album from '../models/Album';
-import auth from '../middleware/auth';
+import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
+import Artist from '../models/Artist';
 
 const tracksRouter = express.Router();
 
@@ -56,18 +57,39 @@ tracksRouter.get('/:id', async (req, res) => {
 });
 
 
-tracksRouter.delete('/:id', auth, permit('admin'),async (req, res) => {
+tracksRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
+  const user = (req as RequestWithUser).user;
+
+  const userId = user._id.toString();
   const _id = req.params.id;
 
   try {
-    const trackDelete = await Track.findByIdAndDelete(_id);
-    if (!trackDelete) {
-      return res.status(404).send({ message: 'Track not found' });
-
+    if (user.role === 'admin') {
+      const track = await Track.findByIdAndDelete(_id);
+      if (!track) {
+        return res.status(404).send({ message: 'Track not found' });
+      }
+      return res.send({ message: 'Track deleted' });
     }
-    return res.send({ message: 'Track deleted' });
+
+    const trackId = await Track.findOne({ _id });
+    const trackUser = trackId?.user.toString();
+    const isPublished = trackId?.isPublished;
+
+    if (!trackId) {
+      return res.status(404).send({ message: 'Track not found' });
+    }
+
+    if (userId === trackUser && isPublished === false) {
+      await Track.deleteOne({ _id: trackId._id });
+      return res.send({ message: 'Track deleted' });
+
+    } else if (userId !== trackUser || isPublished === true) {
+      return res.send({ message: 'Cannot be deleted' });
+    }
+
   } catch (e) {
-    return  res.send(e);
+    return res.send(e);
   }
 });
 

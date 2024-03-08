@@ -9,6 +9,7 @@ export interface UserFields {
 }
 
 export interface ArtistCreate {
+  user:user;
   name: string;
   image: string | null;
   description: string | null;
@@ -16,6 +17,7 @@ export interface ArtistCreate {
 }
 
 export interface AlbumCreate {
+  user:user;
   name: string;
   artist: string;
   image: string | null;
@@ -25,6 +27,7 @@ export interface AlbumCreate {
 }
 
 export interface TrackCreate {
+  user:user;
   name: string;
   album: Schema.Types.ObjectId;
   duration: string;

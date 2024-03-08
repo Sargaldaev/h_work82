@@ -5,6 +5,7 @@ import Artist from '../models/Artist';
 import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
 import { UserMethods } from '../models/User';
+import Album from '../models/Album';
 
 const artistsRouter = express.Router();
 
@@ -34,20 +35,38 @@ artistsRouter.get('/', async (req, res) => {
   }
 });
 
-artistsRouter.delete('/:id', auth, permit('admin user'), async (req, res) => {
+artistsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
   const user = (req as RequestWithUser).user;
 
+  const userId = user._id.toString();
   const _id = req.params.id;
 
   try {
-    const artistDelete = await Artist.findOneAndDelete({ _id });
-    if (user._id === artistDelete?._id) {
-      console.log('yes');
+    if (user.role === 'admin') {
+      const artist = await Artist.findByIdAndDelete(_id);
+
+      const artistId = artist?._id.toString()
+      await Album.deleteMany({artist : artistId });
+      if (!artist) {
+        return res.status(404).send({ message: 'Artist not found' });
+      }
+      return res.send({ message: 'Artist deleted' });
     }
-    if (!artistDelete) {
+
+    const artistId = await Artist.findOne({ _id });
+    const artistUser = artistId?.user.toString();
+    const isPublished = artistId?.isPublished;
+
+    if (!artistId) {
       return res.status(404).send({ message: 'Artist not found' });
     }
-    return res.send({ message: 'Artist deleted' });
+
+    if (userId === artistUser && isPublished === false) {
+      await Artist.deleteOne({ _id: artistId._id });
+      return res.send({ message: 'Artist deleted' });
+    } else if (userId !== artistUser || isPublished === true) {
+      return res.send({ message: 'Cannot be deleted' });
+    }
   } catch (e) {
     return res.send(e);
   }

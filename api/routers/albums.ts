@@ -2,13 +2,14 @@ import express from 'express';
 import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 import Album from '../models/Album';
-import auth from '../middleware/auth';
+import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
+import Artist from '../models/Artist';
+import Track from '../models/Track';
 
 const albumsRouter = express.Router();
 
-albumsRouter.post('/',auth, imagesUpload.single('image'), async (req, res, next) => {
-
+albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
   try {
     const saveAlbum = new Album({
       name: req.body.name,
@@ -54,18 +55,38 @@ albumsRouter.get('/:id', async (req, res) => {
   }
 });
 
-albumsRouter.delete('/:id', auth, permit('admin'),async (req, res) => {
+albumsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
+  const user = (req as RequestWithUser).user;
+
+  const userId = user._id.toString();
   const _id = req.params.id;
 
   try {
-    const albumDelete = await Album.findByIdAndDelete(_id);
-    if (!albumDelete) {
-      return res.status(404).send({ message: 'Album not found' });
-
+    if (user.role === 'admin') {
+      const albumId = await Album.findByIdAndDelete(_id);
+      await Track.deleteMany({ album: albumId });
+      if (!albumId) {
+        return res.status(404).send({ message: 'Album not found' });
+      }
+      return res.send({ message: 'Album deleted' });
     }
-    return res.send({ message: 'Album deleted' });
+
+    const albumId = await Album.findOne({ _id });
+    const albumUser = albumId?.user.toString();
+    const isPublished = albumId?.isPublished;
+
+    if (!albumId) {
+      return res.status(404).send({ message: 'Album not found' });
+    }
+
+    if (userId === albumUser && isPublished === false) {
+      await Artist.deleteOne({ _id: albumId._id });
+      return res.send({ message: 'Album deleted' });
+    } else if (userId !== albumUser || isPublished === true) {
+      return res.send({ message: 'Cannot be deleted' });
+    }
   } catch (e) {
-    return  res.send(e);
+    return res.send(e);
   }
 });
 

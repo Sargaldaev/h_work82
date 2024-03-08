@@ -1,8 +1,18 @@
 import mongoose from 'mongoose';
+import User from './User';
 
 const Schema = mongoose.Schema;
 
 const ArtistSchema = new Schema({
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    validate: {
+      validator: async (value: mongoose.Types.ObjectId) => await User.findById(value),
+      message: 'User does not exist'
+    }
+  },
   name: {
     type: String,
     required: true,

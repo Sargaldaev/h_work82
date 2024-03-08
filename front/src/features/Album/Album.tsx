@@ -32,6 +32,7 @@ const Album = () => {
         ) : null}
         <Box
           display={'flex'}
+          flexWrap={'wrap'}
           sx={{gap: '10px'}}
         >
           {
