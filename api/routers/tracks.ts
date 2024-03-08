@@ -4,13 +4,15 @@ import Track from '../models/Track';
 import Album from '../models/Album';
 import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
-import Artist from '../models/Artist';
 
 const tracksRouter = express.Router();
 
 tracksRouter.post('/', auth,async (req, res, next) => {
+  const user = (req as RequestWithUser).user;
+
   try {
     const saveTrack = new Track({
+      user:user._id,
       name: req.body.name,
       album: req.body.album,
       duration: req.body.duration,

@@ -18,8 +18,11 @@ const Login = () => {
     username: '',
     password: '',
   });
-  const defaultTheme = createTheme();
-
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setUsers((prevState) => ({
@@ -40,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline/>
         <Box
@@ -93,6 +96,7 @@ const Login = () => {
             <Button
               type="submit"
               fullWidth
+              color={'success'}
               variant="contained"
               sx={{mt: 3, mb: 2}}
               disabled={!!loginLoad}

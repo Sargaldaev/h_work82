@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../app/store.ts';
+import { AppDispatch, RootState } from '../../../app/store.ts';
 import { useEffect } from 'react';
-import { fetchDataTrack } from '../../store/track/trackThunk.ts';
-import { fetchDataAlbumInfo } from '../../store/album/albumThunk.ts';
+import { fetchDataTrack } from '../../../store/track/trackThunk.ts';
+import { fetchDataAlbumInfo } from '../../../store/album/albumThunk.ts';
 import Button from '@mui/material/Button';
-import { historyTrackPost } from '../../store/trackHistory/trackHistoryThunk.ts';
+import { historyTrackPost } from '../../../store/trackHistory/trackHistoryThunk.ts';
 import TracksItem from './TrackItem.tsx';
 
 const Track = () => {
@@ -60,11 +60,22 @@ const Track = () => {
             <CircularProgress/>
           ) : (
             tracks.map((track) =>
-              <TracksItem
-                key={track._id}
-                track={track}
-                onTrackHistory={() => onTrackHistory(track._id)}
-              />
+              track.isPublished || user?._id === track.user ? (
+                user?._id === track.user  && !track.isPublished ? (
+                    <TracksItem
+                      key={track._id}
+                      track={track}
+                      publ={track.isPublished}
+                      onTrackHistory={() => onTrackHistory(track._id)}
+                    />
+                  ) :
+                  <TracksItem
+                    key={track._id}
+                    track={track}
+                    publ={track.isPublished}
+                    onTrackHistory={() => onTrackHistory(track._id)}
+                  />
+              ) : null,
             )
           )}
         </Box>

@@ -1,20 +1,22 @@
 import express from 'express';
 import { imagesUpload } from '../multer';
-import mongoose, { HydratedDocument } from 'mongoose';
+import mongoose from 'mongoose';
 import Artist from '../models/Artist';
 import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
-import { UserMethods } from '../models/User';
 import Album from '../models/Album';
 
 const artistsRouter = express.Router();
 
 artistsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
+  const user = (req as RequestWithUser).user;
+
   try {
     const saveArtist = new Artist({
+      user:user._id,
       name: req.body.name,
       description: req.body.description,
-      image: req.file ? 'images/' + req.file.filename : null,
+      image: req.file ? req.file.filename : null,
     });
     await saveArtist.save();
     return res.send(saveArtist);

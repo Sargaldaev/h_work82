@@ -1,9 +1,10 @@
 import { Track } from '../../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchDataTrack } from './trackThunk';
+import { createTrack, fetchDataTrack } from './trackThunk';
 
 export interface TrackState {
   tracks: Track[];
+  createLoad:boolean,
   urlYoutube: string;
   fetchLoadTrack: boolean;
 }
@@ -11,6 +12,7 @@ export interface TrackState {
 const initialState: TrackState = {
   tracks: [],
   urlYoutube: '',
+  createLoad:false,
   fetchLoadTrack: false,
 };
 
@@ -36,6 +38,17 @@ export const trackSlice = createSlice({
     });
     builder.addCase(fetchDataTrack.rejected, (state: TrackState) => {
       state.fetchLoadTrack = false;
+    });
+
+
+    builder.addCase(createTrack.pending, (state: TrackState) => {
+      state.createLoad = true;
+    });
+    builder.addCase(createTrack.fulfilled, (state: TrackState) => {
+      state.createLoad = false;
+    });
+    builder.addCase(createTrack.rejected, (state: TrackState) => {
+      state.createLoad = false;
     });
   },
 });

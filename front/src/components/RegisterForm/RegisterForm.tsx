@@ -31,7 +31,6 @@ function Copyright(props: any) {
   );
 }
 
-const defaultTheme = createTheme();
 
 const Register = () => {
   const { registerLoading, registerError } = useSelector((state: RootState) => state.user);
@@ -40,6 +39,11 @@ const Register = () => {
   const [users, setUsers] = useState<Register>({
     username: '',
     password: '',
+  });
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
   });
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +75,7 @@ const Register = () => {
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -123,6 +127,7 @@ const Register = () => {
             </Grid>
             <Button
               type="submit"
+              color={'success'}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

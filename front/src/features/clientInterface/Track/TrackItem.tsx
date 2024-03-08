@@ -1,16 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Typography } from '@mui/material';
-import { Track } from '../../types';
-import { AppDispatch, RootState } from '../../app/store.ts';
-import { onPlayYouTube } from '../../store/track/traksSlice.ts';
+import { Track } from '../../../types';
+import { AppDispatch, RootState } from '../../../app/store.ts';
+import { onPlayYouTube } from '../../../store/track/traksSlice.ts';
 
 interface Props {
   track: Track;
+  publ:boolean;
   onTrackHistory: (id: string) => void;
 }
 
-const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
+const TracksItem: React.FC<Props> = ({track, onTrackHistory,publ}) => {
   const {user} = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -39,6 +40,15 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory}) => {
           gap: '35px',
         }}
       >
+      {
+        !publ ? (
+          <>
+            <Box sx={{color:'red'}}>
+              Not published
+            </Box>
+          </>
+        ) : null
+      }
         <Typography variant="body1" fontWeight="bold" sx={{ms: 2}}>
           {track.songNumber}
         </Typography>

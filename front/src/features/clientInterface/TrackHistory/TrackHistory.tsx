@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { historyTrackData } from '../../store/trackHistory/trackHistoryThunk.ts';
-import { AppDispatch, RootState } from '../../app/store.ts';
+import { historyTrackData } from '../../../store/trackHistory/trackHistoryThunk.ts';
+import { AppDispatch, RootState } from '../../../app/store.ts';
 import dayjs from 'dayjs';
 import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';

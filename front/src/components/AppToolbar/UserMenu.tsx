@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store.ts';
 import { onClose } from '../../store/track/traksSlice.ts';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+import { logout } from '../../store/user/userThunk';
+
 
 interface Props {
   user: User;
@@ -24,6 +26,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -36,6 +41,23 @@ const UserMenu: React.FC<Props> = ({user}) => {
             Track histories
           </Link>
         </MenuItem>
+        <MenuItem>
+          <Link to="/addArtist" style={{color: 'white', textDecoration: 'none'}}>
+            Add artist
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to="/addAlbum" style={{color: 'white', textDecoration: 'none'}}>
+            Add album
+          </Link>
+        </MenuItem>
+
+        <MenuItem>
+          <Link to="/addTrack" style={{color: 'white', textDecoration: 'none'}}>
+            Add track
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       {urlYoutube && (
@@ -63,9 +85,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
                   position: 'absolute',
                   top: -10,
                   right: -10,
-                  background:'maroon',
-                  width:'24px',
-                  height:'24px'
+                  background: 'maroon',
+                  width: '24px',
+                  height: '24px'
                 }
               }
             >

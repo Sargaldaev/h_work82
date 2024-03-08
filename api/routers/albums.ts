@@ -10,12 +10,15 @@ import Track from '../models/Track';
 const albumsRouter = express.Router();
 
 albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
+  const user = (req as RequestWithUser).user;
+
   try {
     const saveAlbum = new Album({
+      user:user._id,
       name: req.body.name,
       artist: req.body.artist,
       releaseYear: req.body.releaseYear,
-      image: req.file ? 'images/' + req.file.filename : null,
+      image: req.file ?  req.file.filename : null,
     });
     await saveAlbum.save();
     res.send(saveAlbum);
