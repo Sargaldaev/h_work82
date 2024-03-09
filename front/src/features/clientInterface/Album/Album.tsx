@@ -7,13 +7,13 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../app/store.ts';
 import { useEffect } from 'react';
-import { fetchDataAlbum } from '../../../store/album/albumThunk.ts';
+import { deleteAlbum, fetchDataAlbum } from '../../../store/album/albumThunk.ts';
 import { Link, useParams } from 'react-router-dom';
 
 const Album = () => {
   const {id} = useParams() as { id: string };
   const dispatch = useDispatch<AppDispatch>();
-  const {albums, fetchLoad} = useSelector((state: RootState) => state.album);
+  const {albums, fetchLoad,deleteAlbumLoad} = useSelector((state: RootState) => state.album);
   const {user} = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
@@ -21,6 +21,10 @@ const Album = () => {
       dispatch(fetchDataAlbum(id));
     }
   }, [dispatch, id]);
+  const deleteAlbumId = async (Id: string) => {
+    await dispatch(deleteAlbum(Id));
+    await dispatch(fetchDataAlbum(id));
+  };
   return (
     <>
       <Box>
@@ -69,6 +73,13 @@ const Album = () => {
                               Learn More
                             </Button>
                           </CardActions>
+                            <Button
+                              className="btn ms-1 btn-primary "
+                              disabled={deleteAlbumLoad === album._id}
+                              onClick={() => deleteAlbumId(album._id)}
+                            >
+                              {deleteAlbumLoad === album._id ? <CircularProgress/> : 'Delete'}
+                            </Button>
                         </Card>
                       </Box>
                     ) : (

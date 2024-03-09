@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../app/store.ts';
 import { useEffect } from 'react';
-import { fetchDataTrack } from '../../../store/track/trackThunk.ts';
+import { deleteTrack, fetchDataTrack } from '../../../store/track/trackThunk.ts';
 import { fetchDataAlbumInfo } from '../../../store/album/albumThunk.ts';
 import Button from '@mui/material/Button';
 import { historyTrackPost } from '../../../store/trackHistory/trackHistoryThunk.ts';
@@ -32,6 +32,10 @@ const Track = () => {
     dispatch(historyTrackPost(id));
   };
 
+  const deleteTrackId = async (Id: string) => {
+    await dispatch(deleteTrack(Id));
+    await dispatch(fetchDataTrack(id));
+  };
   return (
     <>
       <Box>
@@ -64,6 +68,7 @@ const Track = () => {
                 user?._id === track.user  && !track.isPublished ? (
                     <TracksItem
                       key={track._id}
+                      deleteTrackId={() => deleteTrackId(track._id)}
                       track={track}
                       publ={track.isPublished}
                       onTrackHistory={() => onTrackHistory(track._id)}

@@ -31,11 +31,11 @@ const TrackAdmin = () => {
     dispatch(historyTrackPost(id));
   };
 
-  const deleteArtistId = async (Id: string) => {
+  const deleteTracktId = async (Id: string) => {
     await dispatch(deleteTrack(Id));
     await dispatch(fetchDataTrack(id));
   };
-  const togglePublishedArtist = async (Id: string) => {
+  const togglePublishedTrack = async (Id: string) => {
     await dispatch(publishedTrack(Id));
     await dispatch(fetchDataTrack(id));
   };
@@ -64,8 +64,8 @@ const TrackAdmin = () => {
             track={track}
             publ={track.isPublished}
             onTrackHistory={() => onTrackHistory(track._id)}
-            deleteTrackId={() => deleteArtistId(track._id)}
-            togglePublished={() => togglePublishedArtist(track._id)}
+            deleteTrackId={() => deleteTracktId(track._id)}
+            togglePublished={() => togglePublishedTrack(track._id)}
           />
         ))
       )}

@@ -8,11 +8,13 @@ import { onPlayYouTube } from '../../../store/track/traksSlice.ts';
 interface Props {
   track: Track;
   publ:boolean;
+  deleteTrackId?: (id: string) => void;
   onTrackHistory: (id: string) => void;
 }
 
-const TracksItem: React.FC<Props> = ({track, onTrackHistory,publ}) => {
+const TracksItem: React.FC<Props> = ({track, onTrackHistory,publ,deleteTrackId}) => {
   const {user} = useSelector((state: RootState) => state.user);
+  const { deleteLoadTrack } = useSelector((state: RootState) => state.track);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -78,9 +80,15 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory,publ}) => {
           >
             Play
           </Button>
+
         ) : null}
       </Box>
-
+      <Button
+        disabled={deleteLoadTrack === track._id}
+        onClick={() => deleteTrackId && deleteTrackId(track._id)}
+      >
+        {deleteLoadTrack === track._id ? 'load' : 'delete'}
+      </Button>
     </Box>
   );
 };

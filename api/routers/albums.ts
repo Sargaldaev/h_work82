@@ -83,7 +83,8 @@ albumsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
     }
 
     if (userId === albumUser && isPublished === false) {
-      await Artist.deleteOne({ _id: albumId._id });
+
+      await Album.deleteOne({ _id: albumId._id });
       return res.send({ message: 'Album deleted' });
     } else if (userId !== albumUser || isPublished === true) {
       return res.send({ message: 'Cannot be deleted' });
