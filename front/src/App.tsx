@@ -10,9 +10,15 @@ import TrackHistory from './features/clientInterface/TrackHistory/TrackHistory.t
 import ArtistForm from './features/clientInterface/ArtistForm/ArtistForm.tsx';
 import AlbumForm from './features/clientInterface/AlbumForm/AlbumForm.tsx';
 import TrackForm from './features/clientInterface/TrackForm/TrackForm.tsx';
+import { RootState } from './app/store.ts';
+import { useSelector } from 'react-redux';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
+import ArtistAdmin from './features/adminInterface/ArtistAdmin/ArtistAdmin.tsx';
+import AlbumAdmin from './features/adminInterface/AlbumAdmin/AlbumAdmin.tsx';
+import TrackAdmin from './features/adminInterface/TrackAdmin/TrackAdmin.tsx';
 
 function App() {
-  // const {user} = useSelector((state: RootState) => state.user);
+  const {user} = useSelector((state: RootState) => state.user);
 
   const darkTheme = createTheme({
     palette: {
@@ -26,12 +32,45 @@ function App() {
         <AppToolbar/>
         <Container>
           <Routes>
-            <Route path={'/'} element={<Artist/>}/>
+            <Route
+              path="/"
+              element={
+                user && user.role === 'admin' ? (
+                  <ProtectedRoute isAllowed={user && user.role === 'admin'}>
+                    <ArtistAdmin/>
+                  </ProtectedRoute>
+                ) : (
+                  <Artist/>
+                )
+              }
+            />
+            <Route
+              path="/artist/:id"
+              element={
+                user && user.role === 'admin' ? (
+                  <ProtectedRoute isAllowed={user && user.role === 'admin'}>
+                    <AlbumAdmin/>
+                  </ProtectedRoute>
+                ) : (
+                  <Album/>
+                )
+              }
+            />
+            <Route
+              path="/albums/:id"
+              element={
+                user && user.role === 'admin' ? (
+                  <ProtectedRoute isAllowed={user && user.role === 'admin'}>
+                    <TrackAdmin/>
+                  </ProtectedRoute>
+                ) : (
+                  <Track/>
+                )
+              }
+            />
             <Route path={'/register'} element={<Register/>}/>
             <Route path={'/login'} element={<Login/>}/>
-            <Route path="/artist/:id" element={<Album/>}/>
             <Route path="/Track_histories" element={<TrackHistory/>}/>
-            <Route path="/albums/:id" element={<Track/>}/>
             <Route path="/addArtist" element={<ArtistForm/>}/>
             <Route path="/addAlbum" element={<AlbumForm/>}/>
             <Route path="/addTrack" element={<TrackForm/>}/>

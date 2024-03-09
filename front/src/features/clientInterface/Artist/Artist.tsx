@@ -7,17 +7,22 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../app/store.ts';
 import { useEffect } from 'react';
-import { fetchData } from '../../../store/artist/artistThunk.ts';
+import { deleteArtist, fetchData } from '../../../store/artist/artistThunk.ts';
 import { Link } from 'react-router-dom';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {artists, fetchLoad} = useSelector((state: RootState) => state.artist);
+  const {artists, fetchLoad,deleteLoad} = useSelector((state: RootState) => state.artist);
   const {user} = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
+
+  const deleteArtistId = async (id: string) => {
+    await dispatch(deleteArtist(id));
+    await dispatch(fetchData());
+  };
   return (
     <>
       <Box>
@@ -62,6 +67,13 @@ const Artist = () => {
                           </CardContent>
                           <CardActions>
                             <Button component={Link} to={`/artist/${artist._id}`} size="small">Learn More</Button>
+                            <Button
+                              className="btn ms-1 btn-primary "
+                              disabled={deleteLoad === artist._id}
+                              onClick={() => deleteArtistId(artist._id)}
+                            >
+                              {deleteLoad === artist._id ? <CircularProgress/> : 'Delete'}
+                            </Button>
                           </CardActions>
                         </Card>
                       </Box>

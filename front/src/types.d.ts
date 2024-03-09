@@ -71,6 +71,7 @@ export interface Register {
 
 export interface User {
   _id: string;
+  role:string;
   username: string;
   password: string;
   token: string;
