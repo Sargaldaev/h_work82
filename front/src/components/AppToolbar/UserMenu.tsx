@@ -8,6 +8,8 @@ import { AppDispatch, RootState } from '../../app/store.ts';
 import { onClose } from '../../store/track/traksSlice.ts';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { logout } from '../../store/user/userThunk';
+import CardMedia from '@mui/material/CardMedia';
+import Card from '@mui/material/Card';
 
 
 interface Props {
@@ -30,11 +32,44 @@ const UserMenu: React.FC<Props> = ({user}) => {
     dispatch(logout());
   };
 
+  let avatar = '';
+  if (user?.avatar) {
+    avatar = user.avatar.includes(`images`)
+      ? 'http://localhost:8000/' + user.avatar
+      : user.avatar.toString();
+  }
+  let avatarFix = '';
+  if (user?.avatar) {
+    avatarFix = user.avatar.includes(`fixtures`) ? 'http://localhost:8000/' + user.avatar : '';
+  }
+
+
   return (
     <>
       <Button onClick={handleClick} color="inherit">
         Hello, {user?.displayName}
       </Button>
+      <Box>
+        {avatarFix ? (
+          <Card>
+            <CardMedia
+              sx={{width:70}}
+              component="img"
+              image={avatarFix}
+              alt="Image"
+            />
+          </Card>
+        ) : (
+          <Card>
+            <CardMedia
+              sx={{width:70}}
+              component="img"
+              image={avatar}
+              alt="Image"
+            />
+          </Card>
+        )}
+      </Box>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>
           <Link to="/Track_histories" style={{color: 'white', textDecoration: 'none'}}>

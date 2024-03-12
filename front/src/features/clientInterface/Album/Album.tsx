@@ -58,7 +58,7 @@ const Album = () => {
                           {album.image ? (
                             <CardMedia sx={{ height: 350 }} image={`http://localhost:8000/${album.image}`} />
                           ) : (
-                            <CardMedia sx={{ height: 350 }} image={',ll'} />
+                            <CardMedia sx={{ height: 350 }} image={'ll'} />
                           )}
                           <CardContent>
                             <Typography gutterBottom variant="h5" component="div">

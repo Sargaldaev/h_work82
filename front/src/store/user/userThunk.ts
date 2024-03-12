@@ -8,8 +8,18 @@ export const register = createAsyncThunk<User, Register, { rejectValue: Validati
   'user/register',
   async (user, {rejectWithValue}) => {
     try {
-      const response = await axiosApi.post<User>('/users', user);
-      return response.data;
+      const formData = new FormData();
+
+      const keys = Object.keys(user) as (keyof Register)[];
+      keys.forEach((key) => {
+        const value = user[key];
+
+        if (value !== null) {
+          formData.append(key, value);
+        }
+      });
+      const {data} = await axiosApi.post<User>('/users', formData);
+      return data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 422) {
         return rejectWithValue(e.response.data);
@@ -38,9 +48,9 @@ export const login = createAsyncThunk<User, Login, { rejectValue: GlobalError }>
 
 export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
   'users/googleLogin',
-  async (credential, { rejectWithValue }) => {
+  async (credential, {rejectWithValue}) => {
     try {
-      const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
+      const response = await axiosApi.post<RegisterResponse>('/users/google', {credential});
       return response.data.user;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {

@@ -1,9 +1,9 @@
 export interface Artist {
   _id: string;
-  user:string;
+  user: string;
   name: string;
   image: string | null;
-  isPublished:boolean;
+  isPublished: boolean;
 }
 
 export interface ArtistCreate {
@@ -13,13 +13,13 @@ export interface ArtistCreate {
 }
 
 export interface Album {
-  user:string;
+  user: string;
   _id: string;
   name: string;
   artist: Artist;
   image: string | null;
   releaseYear: number;
-  isPublished:boolean;
+  isPublished: boolean;
 }
 
 export interface AlbumCreate {
@@ -31,13 +31,13 @@ export interface AlbumCreate {
 
 export interface Track {
   _id: string;
-  user:string;
+  user: string;
   name: string;
   album: Album;
   duration: string;
   songNumber: number;
   youTube: string;
-  isPublished:boolean;
+  isPublished: boolean;
 }
 
 export interface TrackCreate {
@@ -67,12 +67,15 @@ export interface TrackHistory {
 export interface Register {
   username: string;
   password: string;
+  displayName: string;
+  avatar: File | null;
 }
 
 export interface User {
   _id: string;
-  role:string;
-  displayName:string;
+  role: string;
+  displayName: string;
+  avatar: string | null;
   username: string;
   password: string;
   token: string;

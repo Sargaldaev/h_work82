@@ -18,6 +18,7 @@ import { AppDispatch, RootState } from '../../app/store';
 import { googleLogin, register } from '../../store/user/userThunk';
 import { Register } from '../../types';
 import { GoogleLogin } from '@react-oauth/google';
+import InputFile from '../InputFile/InputFile.tsx';
 
 function Copyright(props: any) {
   return (
@@ -40,6 +41,8 @@ const Register = () => {
   const [users, setUsers] = useState<Register>({
     username: '',
     password: '',
+    displayName:'',
+    avatar:null
   });
   const darkTheme = createTheme({
     palette: {
@@ -64,14 +67,11 @@ const Register = () => {
     }
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setUsers((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      };
-    });
+    const {name, value, files} = e.target;
+    setUsers((prevState) => ({
+      ...prevState,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const googleLoginHandler = async (credential: string) => {
@@ -121,6 +121,27 @@ const Register = () => {
                   error={Boolean(getFieldError('username'))}
                   helperText={getFieldError('username')}
                 />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="displayName"
+                  label="displayName"
+                  name="displayName"
+                  autoComplete="new-displayName"
+                  onChange={onChange}
+                  value={users.displayName}
+                  error={Boolean(getFieldError('displayName'))}
+                  helperText={getFieldError('displayName')}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputFile
+                  name={'avatar'}
+                  image={users.avatar}
+                  onChange={onChange}/>
               </Grid>
               <Grid item xs={12}>
                 <TextField
