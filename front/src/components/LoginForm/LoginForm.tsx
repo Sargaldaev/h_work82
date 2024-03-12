@@ -8,7 +8,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { AppDispatch, RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Login } from '../../types';
-import { login } from '../../store/user/userThunk';
+import { googleLogin, login } from '../../store/user/userThunk';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,6 +43,12 @@ const Login = () => {
     }
   };
 
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
+
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
@@ -67,6 +74,17 @@ const Login = () => {
               {error.error}
             </Alert>
           )}
+          <Box sx={{pt: 2}}>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                if (credentialResponse.credential) {
+                  void googleLoginHandler(credentialResponse.credential);
+                }
+              }}
+              onError={() => {
+                console.log('log');
+              }}/>
+          </Box>
           <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
             <Grid container spacing={2}>
               <Grid item xs={12}>

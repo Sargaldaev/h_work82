@@ -72,6 +72,7 @@ export interface Register {
 export interface User {
   _id: string;
   role:string;
+  displayName:string;
   username: string;
   password: string;
   token: string;
@@ -80,6 +81,11 @@ export interface User {
 export interface Login {
   username: string;
   password: string;
+}
+
+export interface RegisterResponse {
+  message: string;
+  user: User;
 }
 
 export interface ValidationError {

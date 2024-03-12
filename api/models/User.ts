@@ -46,7 +46,9 @@ const UserSchema = new Schema<UserFields, UserModel, UserMethods>({
     required: true,
     default: 'user',
     enum: ['user', 'admin']
-  }
+  },
+  googleID:String,
+  displayName:String
 });
 
 UserSchema.methods.generateToken = function () {

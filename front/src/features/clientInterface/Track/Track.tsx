@@ -78,6 +78,7 @@ const Track = () => {
                     key={track._id}
                     track={track}
                     publ={track.isPublished}
+                    deleteTrackId={() => deleteTrackId(track._id)}
                     onTrackHistory={() => onTrackHistory(track._id)}
                   />
               ) : null,

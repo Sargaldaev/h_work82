@@ -32,6 +32,7 @@ const TrackForm = () => {
   const navigate = useNavigate();
   const {createLoad} = useSelector((state: RootState) => state.track);
   const {albumsAll} = useSelector((state: RootState) => state.album);
+  const {user} = useSelector((state: RootState) => state.user);
 
   const [state, setState] = useState<TrackCreate>({
     name: '',
@@ -41,9 +42,13 @@ const TrackForm = () => {
     songNumber: ''
   });
 
+
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
     dispatch(fetchDataAlbumAll());
-  }, [dispatch]);
+  }, [dispatch,user,navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value, files} = e.target;

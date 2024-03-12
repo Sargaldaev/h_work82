@@ -15,8 +15,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
-import { register } from '../../store/user/userThunk';
+import { googleLogin, register } from '../../store/user/userThunk';
 import { Register } from '../../types';
+import { GoogleLogin } from '@react-oauth/google';
 
 function Copyright(props: any) {
   return (
@@ -73,7 +74,11 @@ const Register = () => {
     });
   };
 
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
 
+  };
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
@@ -93,6 +98,15 @@ const Register = () => {
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={onFormSubmit} sx={{ mt: 3 }}>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                if (credentialResponse.credential) {
+                  void googleLoginHandler(credentialResponse.credential);
+                }
+              }}
+              onError={() => {
+                console.log('log');
+              }}/>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

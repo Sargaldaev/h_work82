@@ -32,6 +32,7 @@ const AlbumForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {createLoad} = useSelector((state: RootState) => state.album);
+  const {user} = useSelector((state: RootState) => state.user);
   const {artists} = useSelector((state: RootState) => state.artist);
 
   const [state, setState] = useState<AlbumCreate>({
@@ -42,8 +43,11 @@ const AlbumForm = () => {
   });
 
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
     dispatch(fetchData());
-  }, [dispatch]);
+  }, [dispatch, user, navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value, files} = e.target;
@@ -76,7 +80,7 @@ const AlbumForm = () => {
       <Container component="main" maxWidth="xs">
         <CssBaseline/>
 
-        <Button component={Link} to={`/`} sx={{position: 'absolute', top: 130, left:555}} size="small">Main</Button>
+        <Button component={Link} to={`/`} sx={{position: 'absolute', top: 130, left: 555}} size="small">Main</Button>
         <Box
           sx={{
             marginTop: 8,

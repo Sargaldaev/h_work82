@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../app/store.ts';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,12 +14,20 @@ const ArtistForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {createLoad} = useSelector((state: RootState) => state.artist);
+  const {user} = useSelector((state: RootState) => state.user);
 
   const [state, setState] = useState<ArtistCreate>({
     name: '',
     description: '',
     image: null
   });
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [dispatch,navigate, user]);
+
 
   const darkTheme = createTheme({
     palette: {

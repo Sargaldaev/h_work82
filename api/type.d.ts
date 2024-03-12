@@ -3,6 +3,8 @@ import user from './models/User';
 
 export interface UserFields {
   username: string;
+  displayName:string;
+  googleID:string;
   password: string;
   token: string;
   role: string;
