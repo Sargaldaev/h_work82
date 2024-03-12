@@ -11,16 +11,13 @@ import { GOOGLE_CLIENT_ID } from './constans.ts';
 
 addInterceptors(store);
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
   <Provider store={store}>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-
-      <PersistGate persistor={persister}>
-        <BrowserRouter>
-          <App/>
-        </BrowserRouter>
-      </PersistGate>
+        <PersistGate persistor={persister}>
+          <BrowserRouter>
+            <App/>
+          </BrowserRouter>
+        </PersistGate>
     </GoogleOAuthProvider>
   </Provider>
-  // {/*</React.StrictMode>,*/}
 );
