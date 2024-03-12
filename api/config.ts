@@ -1,7 +1,6 @@
 import path from 'path';
 import { config as configDotenv } from 'dotenv';
 
-
 configDotenv();
 const rootPath = __dirname;
 

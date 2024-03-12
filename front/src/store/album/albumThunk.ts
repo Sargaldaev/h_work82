@@ -5,23 +5,20 @@ import { Album, AlbumCreate, AlbumInfo } from '../../types';
 export const fetchDataAlbum = createAsyncThunk<Album[], string>(
   'album/fetchDataAlbum',
   async (id) => {
-    const {data} = await axiosApi.get<Album[]>(`/albums?artist=${id}`);
+    const { data } = await axiosApi.get<Album[]>(`/albums?artist=${id}`);
     return data;
   },
 );
 
-export const fetchDataAlbumAll = createAsyncThunk<Album[]>(
-  'album/fetchDataAlbumAll',
-  async () => {
-    const {data} = await axiosApi.get<Album[]>(`/albums`);
-    return data;
-  },
-);
+export const fetchDataAlbumAll = createAsyncThunk<Album[]>('album/fetchDataAlbumAll', async () => {
+  const { data } = await axiosApi.get<Album[]>(`/albums`);
+  return data;
+});
 
 export const fetchDataAlbumInfo = createAsyncThunk<AlbumInfo, string>(
   'album/fetchDataAlbumInfo',
   async (id) => {
-    const {data} = await axiosApi.get<AlbumInfo>(`/albums/${id}`);
+    const { data } = await axiosApi.get<AlbumInfo>(`/albums/${id}`);
     return data;
   },
 );

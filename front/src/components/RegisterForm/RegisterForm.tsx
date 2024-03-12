@@ -33,7 +33,6 @@ function Copyright(props: any) {
   );
 }
 
-
 const Register = () => {
   const { registerLoading, registerError } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
@@ -41,8 +40,8 @@ const Register = () => {
   const [users, setUsers] = useState<Register>({
     username: '',
     password: '',
-    displayName:'',
-    avatar:null
+    displayName: '',
+    avatar: null,
   });
   const darkTheme = createTheme({
     palette: {
@@ -67,7 +66,7 @@ const Register = () => {
     }
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, files} = e.target;
+    const { name, value, files } = e.target;
     setUsers((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
@@ -77,7 +76,6 @@ const Register = () => {
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
-
   };
   return (
     <ThemeProvider theme={darkTheme}>
@@ -99,14 +97,15 @@ const Register = () => {
           </Typography>
           <Box component="form" noValidate onSubmit={onFormSubmit} sx={{ mt: 3 }}>
             <GoogleLogin
-              onSuccess={credentialResponse => {
+              onSuccess={(credentialResponse) => {
                 if (credentialResponse.credential) {
                   void googleLoginHandler(credentialResponse.credential);
                 }
               }}
               onError={() => {
                 console.log('log');
-              }}/>
+              }}
+            />
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -138,10 +137,7 @@ const Register = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <InputFile
-                  name={'avatar'}
-                  image={users.avatar}
-                  onChange={onChange}/>
+                <InputFile name={'avatar'} image={users.avatar} onChange={onChange} />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -158,7 +154,6 @@ const Register = () => {
                   helperText={getFieldError('password')}
                 />
               </Grid>
-
             </Grid>
             <Button
               type="submit"

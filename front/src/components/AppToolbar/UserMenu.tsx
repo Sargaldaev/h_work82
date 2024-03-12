@@ -11,14 +11,13 @@ import { logout } from '../../store/user/userThunk';
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
 
-
 interface Props {
   user: User;
 }
 
-const UserMenu: React.FC<Props> = ({user}) => {
+const UserMenu: React.FC<Props> = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const {urlYoutube} = useSelector((state: RootState) => state.track);
+  const { urlYoutube } = useSelector((state: RootState) => state.track);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,7 +42,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
     avatarFix = user.avatar.includes(`fixtures`) ? 'http://localhost:8000/' + user.avatar : '';
   }
 
-
   return (
     <>
       <Button onClick={handleClick} color="inherit">
@@ -52,43 +50,33 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Box>
         {avatarFix ? (
           <Card>
-            <CardMedia
-              sx={{width:70}}
-              component="img"
-              image={avatarFix}
-              alt="Image"
-            />
+            <CardMedia sx={{ width: 70 }} component="img" image={avatarFix} alt="Image" />
           </Card>
         ) : (
           <Card>
-            <CardMedia
-              sx={{width:70}}
-              component="img"
-              image={avatar}
-              alt="Image"
-            />
+            <CardMedia sx={{ width: 70 }} component="img" image={avatar} alt="Image" />
           </Card>
         )}
       </Box>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>
-          <Link to="/Track_histories" style={{color: 'white', textDecoration: 'none'}}>
+          <Link to="/Track_histories" style={{ color: 'white', textDecoration: 'none' }}>
             Track histories
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/addArtist" style={{color: 'white', textDecoration: 'none'}}>
+          <Link to="/addArtist" style={{ color: 'white', textDecoration: 'none' }}>
             Add artist
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/addAlbum" style={{color: 'white', textDecoration: 'none'}}>
+          <Link to="/addAlbum" style={{ color: 'white', textDecoration: 'none' }}>
             Add album
           </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/addTrack" style={{color: 'white', textDecoration: 'none'}}>
+          <Link to="/addTrack" style={{ color: 'white', textDecoration: 'none' }}>
             Add track
           </Link>
         </MenuItem>
@@ -115,21 +103,19 @@ const UserMenu: React.FC<Props> = ({user}) => {
             }}
           >
             <Box
-              sx={
-                {
-                  position: 'absolute',
-                  top: -10,
-                  right: -10,
-                  background: 'maroon',
-                  width: '24px',
-                  height: '24px'
-                }
-              }
+              sx={{
+                position: 'absolute',
+                top: -10,
+                right: -10,
+                background: 'maroon',
+                width: '24px',
+                height: '24px',
+              }}
             >
-              <CloseSharpIcon/>
+              <CloseSharpIcon />
             </Box>
           </Button>
-          <YouTube autoPlay src={urlYoutube}/>
+          <YouTube autoPlay src={urlYoutube} />
         </Box>
       )}
     </>

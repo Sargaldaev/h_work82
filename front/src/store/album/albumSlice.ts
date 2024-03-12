@@ -6,7 +6,7 @@ import {
   fetchDataAlbum,
   fetchDataAlbumAll,
   fetchDataAlbumInfo,
-  publishedAlbum
+  publishedAlbum,
 } from './albumThunk.ts';
 
 export interface AlbumState {
@@ -37,26 +37,30 @@ export const albumSlice = createSlice({
     builder.addCase(fetchDataAlbum.pending, (state: AlbumState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(fetchDataAlbum.fulfilled, (state: AlbumState, action: PayloadAction<Album[]>) => {
-      state.fetchLoad = false;
-      state.albums = action.payload;
-    });
+    builder.addCase(
+      fetchDataAlbum.fulfilled,
+      (state: AlbumState, action: PayloadAction<Album[]>) => {
+        state.fetchLoad = false;
+        state.albums = action.payload;
+      },
+    );
     builder.addCase(fetchDataAlbum.rejected, (state: AlbumState) => {
       state.fetchLoad = false;
     });
 
-
     builder.addCase(fetchDataAlbumInfo.pending, (state: AlbumState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(fetchDataAlbumInfo.fulfilled, (state: AlbumState, action: PayloadAction<AlbumInfo>) => {
-      state.fetchLoad = false;
-      state.albumsInfo = action.payload || null;
-    });
+    builder.addCase(
+      fetchDataAlbumInfo.fulfilled,
+      (state: AlbumState, action: PayloadAction<AlbumInfo>) => {
+        state.fetchLoad = false;
+        state.albumsInfo = action.payload || null;
+      },
+    );
     builder.addCase(fetchDataAlbumInfo.rejected, (state: AlbumState) => {
       state.fetchLoad = false;
     });
-
 
     builder.addCase(createAlbum.pending, (state: AlbumState) => {
       state.createLoad = true;
@@ -68,18 +72,19 @@ export const albumSlice = createSlice({
       state.createLoad = false;
     });
 
-
     builder.addCase(fetchDataAlbumAll.pending, (state: AlbumState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(fetchDataAlbumAll.fulfilled, (state: AlbumState, action: PayloadAction<Album[]>) => {
-      state.fetchLoad = false;
-      state.albumsAll = action.payload;
-    });
+    builder.addCase(
+      fetchDataAlbumAll.fulfilled,
+      (state: AlbumState, action: PayloadAction<Album[]>) => {
+        state.fetchLoad = false;
+        state.albumsAll = action.payload;
+      },
+    );
     builder.addCase(fetchDataAlbumAll.rejected, (state: AlbumState) => {
       state.fetchLoad = false;
     });
-
 
     builder.addCase(deleteAlbum.pending, (state: AlbumState, action) => {
       state.deleteAlbumLoad = action.meta.arg || '';
@@ -91,7 +96,6 @@ export const albumSlice = createSlice({
       state.deleteAlbumLoad = '';
     });
 
-
     builder.addCase(publishedAlbum.pending, (state: AlbumState, action) => {
       state.publishedAlbumLoad = action.meta.arg || '';
     });
@@ -101,9 +105,7 @@ export const albumSlice = createSlice({
     builder.addCase(publishedAlbum.rejected, (state: AlbumState) => {
       state.publishedAlbumLoad = '';
     });
-
   },
-
 });
 
 export const albumReducer = albumSlice.reducer;

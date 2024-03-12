@@ -48,7 +48,6 @@ export interface TrackCreate {
   youTube: string;
 }
 
-
 export interface AlbumInfo {
   _id: string;
   name: string;
@@ -106,4 +105,3 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
-

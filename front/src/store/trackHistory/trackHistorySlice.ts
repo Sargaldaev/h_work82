@@ -15,10 +15,12 @@ export const historyTrackSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(historyTrackData.fulfilled, (state: historyTrackState, action: PayloadAction<TrackHistory[]>) => {
-      state.trackHistory = action.payload;
-    });
-
+    builder.addCase(
+      historyTrackData.fulfilled,
+      (state: historyTrackState, action: PayloadAction<TrackHistory[]>) => {
+        state.trackHistory = action.payload;
+      },
+    );
   },
 });
 

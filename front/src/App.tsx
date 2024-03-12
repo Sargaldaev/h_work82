@@ -18,7 +18,7 @@ import AlbumAdmin from './features/adminInterface/AlbumAdmin/AlbumAdmin.tsx';
 import TrackAdmin from './features/adminInterface/TrackAdmin/TrackAdmin.tsx';
 
 function App() {
-  const {user} = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const darkTheme = createTheme({
     palette: {
@@ -28,8 +28,8 @@ function App() {
   return (
     <>
       <ThemeProvider theme={darkTheme}>
-        <CssBaseline/>
-        <AppToolbar/>
+        <CssBaseline />
+        <AppToolbar />
         <Container>
           <Routes>
             <Route
@@ -37,10 +37,10 @@ function App() {
               element={
                 user && user.role === 'admin' ? (
                   <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                    <ArtistAdmin/>
+                    <ArtistAdmin />
                   </ProtectedRoute>
                 ) : (
-                  <Artist/>
+                  <Artist />
                 )
               }
             />
@@ -49,10 +49,10 @@ function App() {
               element={
                 user && user.role === 'admin' ? (
                   <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                    <AlbumAdmin/>
+                    <AlbumAdmin />
                   </ProtectedRoute>
                 ) : (
-                  <Album/>
+                  <Album />
                 )
               }
             />
@@ -61,26 +61,25 @@ function App() {
               element={
                 user && user.role === 'admin' ? (
                   <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                    <TrackAdmin/>
+                    <TrackAdmin />
                   </ProtectedRoute>
                 ) : (
-                  <Track/>
+                  <Track />
                 )
               }
             />
-            <Route path={'/register'} element={<Register/>}/>
-            <Route path={'/login'} element={<Login/>}/>
-            <Route path="/Track_histories" element={<TrackHistory/>}/>
-            <Route path="/addArtist" element={<ArtistForm/>}/>
-            <Route path="/addAlbum" element={<AlbumForm/>}/>
-            <Route path="/addTrack" element={<TrackForm/>}/>
-            <Route path="*" element={<h1>Not Found</h1>}/>
+            <Route path={'/register'} element={<Register />} />
+            <Route path={'/login'} element={<Login />} />
+            <Route path="/Track_histories" element={<TrackHistory />} />
+            <Route path="/addArtist" element={<ArtistForm />} />
+            <Route path="/addAlbum" element={<AlbumForm />} />
+            <Route path="/addTrack" element={<TrackForm />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </Container>
       </ThemeProvider>
     </>
   );
 }
-
 
 export default App;

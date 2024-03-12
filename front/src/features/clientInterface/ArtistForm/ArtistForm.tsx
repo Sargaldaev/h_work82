@@ -13,21 +13,20 @@ import InputFile from '../../../components/InputFile/InputFile.tsx';
 const ArtistForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const {createLoad} = useSelector((state: RootState) => state.artist);
-  const {user} = useSelector((state: RootState) => state.user);
+  const { createLoad } = useSelector((state: RootState) => state.artist);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const [state, setState] = useState<ArtistCreate>({
     name: '',
     description: '',
-    image: null
+    image: null,
   });
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
-  }, [dispatch,navigate, user]);
-
+  }, [dispatch, navigate, user]);
 
   const darkTheme = createTheme({
     palette: {
@@ -35,7 +34,7 @@ const ArtistForm = () => {
     },
   });
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, files} = e.target;
+    const { name, value, files } = e.target;
     setState((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
@@ -55,9 +54,16 @@ const ArtistForm = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline/>
+        <CssBaseline />
 
-        <Button component={Link} to={`/`} sx={{position: 'absolute', top: 130, left:555 }} size="small">Main</Button>
+        <Button
+          component={Link}
+          to={`/`}
+          sx={{ position: 'absolute', top: 130, left: 555 }}
+          size="small"
+        >
+          Main
+        </Button>
         <Box
           sx={{
             marginTop: 8,
@@ -66,14 +72,9 @@ const ArtistForm = () => {
             alignItems: 'center',
           }}
         >
-          <Box
-            display={'flex'}
-          >
+          <Box display={'flex'}>Create Artist</Box>
 
-            Create Artist
-          </Box>
-
-          <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+          <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -98,10 +99,7 @@ const ArtistForm = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <InputFile
-                  name={'image'}
-                  image={state.image}
-                  onChange={onChange}/>
+                <InputFile name={'image'} image={state.image} onChange={onChange} />
               </Grid>
             </Grid>
             <Button
@@ -109,10 +107,10 @@ const ArtistForm = () => {
               fullWidth
               color={'success'}
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               disabled={!!createLoad}
             >
-              {createLoad ? <CircularProgress/> : 'Create'}
+              {createLoad ? <CircularProgress /> : 'Create'}
             </Button>
           </Box>
         </Box>

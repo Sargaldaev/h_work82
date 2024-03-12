@@ -10,15 +10,14 @@ import { historyTrackPost } from '../../../store/trackHistory/trackHistoryThunk.
 import TracksItem from './TrackItem.tsx';
 
 const Track = () => {
-  const {id} = useParams() as { id: string };
+  const { id } = useParams() as { id: string };
   const dispatch = useDispatch<AppDispatch>();
-  const {albumsInfo} = useSelector((state: RootState) => state.album);
-  const {tracks, fetchLoadTrack} = useSelector((state: RootState) => state.track);
-  const {user} = useSelector((state: RootState) => state.user);
+  const { albumsInfo } = useSelector((state: RootState) => state.album);
+  const { tracks, fetchLoadTrack } = useSelector((state: RootState) => state.track);
+  const { user } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-
     if (!user) {
       navigate('/login');
     }
@@ -39,7 +38,9 @@ const Track = () => {
   return (
     <>
       <Box>
-        <Button component={Link} to={`/artist/${albumsInfo?.artist._id}`} size="small">Back</Button>
+        <Button component={Link} to={`/artist/${albumsInfo?.artist._id}`} size="small">
+          Back
+        </Button>
 
         {albumsInfo ? (
           <Box
@@ -58,22 +59,21 @@ const Track = () => {
           </Box>
         ) : null}
 
-        <Box
-        >
+        <Box>
           {fetchLoadTrack ? (
-            <CircularProgress/>
+            <CircularProgress />
           ) : (
             tracks.map((track) =>
               track.isPublished || user?._id === track.user ? (
-                user?._id === track.user  && !track.isPublished ? (
-                    <TracksItem
-                      key={track._id}
-                      deleteTrackId={() => deleteTrackId(track._id)}
-                      track={track}
-                      publ={track.isPublished}
-                      onTrackHistory={() => onTrackHistory(track._id)}
-                    />
-                  ) :
+                user?._id === track.user && !track.isPublished ? (
+                  <TracksItem
+                    key={track._id}
+                    deleteTrackId={() => deleteTrackId(track._id)}
+                    track={track}
+                    publ={track.isPublished}
+                    onTrackHistory={() => onTrackHistory(track._id)}
+                  />
+                ) : (
                   <TracksItem
                     key={track._id}
                     track={track}
@@ -81,11 +81,11 @@ const Track = () => {
                     deleteTrackId={() => deleteTrackId(track._id)}
                     onTrackHistory={() => onTrackHistory(track._id)}
                   />
+                )
               ) : null,
             )
           )}
         </Box>
-
       </Box>
     </>
   );

@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Alert, Avatar, Box, Button, Container, Grid, Link, TextField, Typography, } from '@mui/material';
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,7 +23,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {loginError: error, loginLoad} = useSelector((state: RootState) => state.user);
+  const { loginError: error, loginLoad } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [users, setUsers] = useState<Login>({
     username: '',
@@ -25,7 +35,7 @@ const Login = () => {
     },
   });
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setUsers((prevState) => ({
       ...prevState,
       [name]: value,
@@ -46,13 +56,12 @@ const Login = () => {
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
-
   };
 
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline/>
+        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -61,31 +70,31 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-            <LockOutlinedIcon/>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box sx={{pt: 2}}>
-          </Box>
+          <Box sx={{ pt: 2 }}></Box>
           {error && (
-            <Alert severity="error" sx={{mt: 3, width: '100%'}}>
+            <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
               {error.error}
             </Alert>
           )}
-          <Box sx={{pt: 2}}>
+          <Box sx={{ pt: 2 }}>
             <GoogleLogin
-              onSuccess={credentialResponse => {
+              onSuccess={(credentialResponse) => {
                 if (credentialResponse.credential) {
                   void googleLoginHandler(credentialResponse.credential);
                 }
               }}
               onError={() => {
                 console.log('log');
-              }}/>
+              }}
+            />
           </Box>
-          <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+          <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -116,10 +125,10 @@ const Login = () => {
               fullWidth
               color={'success'}
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               disabled={!!loginLoad}
             >
-              {loginLoad ? <CircularProgress/> : 'Sign In'}
+              {loginLoad ? <CircularProgress /> : 'Sign In'}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

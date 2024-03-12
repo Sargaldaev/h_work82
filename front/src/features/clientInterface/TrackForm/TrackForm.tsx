@@ -15,7 +15,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -30,28 +30,27 @@ const darkTheme = createTheme({
 const TrackForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const {createLoad} = useSelector((state: RootState) => state.track);
-  const {albumsAll} = useSelector((state: RootState) => state.album);
-  const {user} = useSelector((state: RootState) => state.user);
+  const { createLoad } = useSelector((state: RootState) => state.track);
+  const { albumsAll } = useSelector((state: RootState) => state.album);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const [state, setState] = useState<TrackCreate>({
     name: '',
     duration: '',
     album: '',
     youTube: '',
-    songNumber: ''
+    songNumber: '',
   });
-
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
     dispatch(fetchDataAlbumAll());
-  }, [dispatch,user,navigate]);
+  }, [dispatch, user, navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, files} = e.target;
+    const { name, value, files } = e.target;
     setState((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
@@ -59,7 +58,7 @@ const TrackForm = () => {
   };
 
   const inputChangeHandlerSelect = (event: SelectChangeEvent) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -79,9 +78,16 @@ const TrackForm = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline/>
+        <CssBaseline />
 
-        <Button component={Link} to={`/`} sx={{position: 'absolute', top: 130, left:555}} size="small">Main</Button>
+        <Button
+          component={Link}
+          to={`/`}
+          sx={{ position: 'absolute', top: 130, left: 555 }}
+          size="small"
+        >
+          Main
+        </Button>
         <Box
           sx={{
             marginTop: 8,
@@ -90,16 +96,11 @@ const TrackForm = () => {
             alignItems: 'center',
           }}
         >
-          <Box
-            display={'flex'}
-          >
-            Create Track
-          </Box>
+          <Box display={'flex'}>Create Track</Box>
 
-          <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+          <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-
                 <FormControl fullWidth>
                   <InputLabel id="album-label">Album</InputLabel>
                   <Select
@@ -173,10 +174,10 @@ const TrackForm = () => {
               fullWidth
               color={'success'}
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               disabled={!!createLoad}
             >
-              {createLoad ? <CircularProgress/> : 'Create'}
+              {createLoad ? <CircularProgress /> : 'Create'}
             </Button>
           </Box>
         </Box>

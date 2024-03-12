@@ -14,11 +14,11 @@ albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next
 
   try {
     const saveAlbum = new Album({
-      user:user._id,
+      user: user._id,
       name: req.body.name,
       artist: req.body.artist,
       releaseYear: req.body.releaseYear,
-      image: req.file ?  req.file.filename : null,
+      image: req.file ? req.file.filename : null,
     });
     await saveAlbum.save();
     res.send(saveAlbum);
@@ -83,7 +83,6 @@ albumsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
     }
 
     if (userId === albumUser && isPublished === false) {
-
       await Album.deleteOne({ _id: albumId._id });
       return res.send({ message: 'Album deleted' });
     } else if (userId !== albumUser || isPublished === true) {

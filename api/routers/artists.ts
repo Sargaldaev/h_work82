@@ -13,7 +13,7 @@ artistsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, nex
 
   try {
     const saveArtist = new Artist({
-      user:user._id,
+      user: user._id,
       name: req.body.name,
       description: req.body.description,
       image: req.file ? req.file.filename : null,
@@ -47,8 +47,8 @@ artistsRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => 
     if (user.role === 'admin') {
       const artist = await Artist.findByIdAndDelete(_id);
 
-      const artistId = artist?._id.toString()
-      await Album.deleteMany({artist : artistId });
+      const artistId = artist?._id.toString();
+      await Album.deleteMany({ artist: artistId });
       if (!artist) {
         return res.status(404).send({ message: 'Artist not found' });
       }

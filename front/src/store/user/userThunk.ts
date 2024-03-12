@@ -6,7 +6,7 @@ import { clearUser } from './userSlice.ts';
 
 export const register = createAsyncThunk<User, Register, { rejectValue: ValidationError }>(
   'user/register',
-  async (user, {rejectWithValue}) => {
+  async (user, { rejectWithValue }) => {
     try {
       const formData = new FormData();
 
@@ -18,7 +18,7 @@ export const register = createAsyncThunk<User, Register, { rejectValue: Validati
           formData.append(key, value);
         }
       });
-      const {data} = await axiosApi.post<User>('/users', formData);
+      const { data } = await axiosApi.post<User>('/users', formData);
       return data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 422) {
@@ -31,14 +31,13 @@ export const register = createAsyncThunk<User, Register, { rejectValue: Validati
 
 export const login = createAsyncThunk<User, Login, { rejectValue: GlobalError }>(
   'user/postDataLogin',
-  async (userLogin, {rejectWithValue}) => {
+  async (userLogin, { rejectWithValue }) => {
     try {
-      const {data} = await axiosApi.post<User>('/users/sessions', userLogin);
+      const { data } = await axiosApi.post<User>('/users/sessions', userLogin);
 
       return data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
-
         return rejectWithValue(e.response.data as GlobalError);
       }
       throw e;
@@ -48,9 +47,9 @@ export const login = createAsyncThunk<User, Login, { rejectValue: GlobalError }>
 
 export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
   'users/googleLogin',
-  async (credential, {rejectWithValue}) => {
+  async (credential, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.post<RegisterResponse>('/users/google', {credential});
+      const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
       return response.data.user;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
@@ -61,8 +60,7 @@ export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalE
   },
 );
 
-
-export const logout = createAsyncThunk('user/logout', async (_, {dispatch}) => {
+export const logout = createAsyncThunk('user/logout', async (_, { dispatch }) => {
   await axiosApi.delete('/users/sessions');
   dispatch(clearUser());
 });

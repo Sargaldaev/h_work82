@@ -7,12 +7,12 @@ import permit from '../middleware/permit';
 
 const tracksRouter = express.Router();
 
-tracksRouter.post('/', auth,async (req, res, next) => {
+tracksRouter.post('/', auth, async (req, res, next) => {
   const user = (req as RequestWithUser).user;
 
   try {
     const saveTrack = new Track({
-      user:user._id,
+      user: user._id,
       name: req.body.name,
       album: req.body.album,
       duration: req.body.duration,
@@ -58,7 +58,6 @@ tracksRouter.get('/:id', async (req, res) => {
   }
 });
 
-
 tracksRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
   const user = (req as RequestWithUser).user;
 
@@ -85,11 +84,9 @@ tracksRouter.delete('/:id', auth, permit('admin', 'user'), async (req, res) => {
     if (userId === trackUser && isPublished === false) {
       await Track.deleteOne({ _id: trackId._id });
       return res.send({ message: 'Track deleted' });
-
     } else if (userId !== trackUser || isPublished === true) {
       return res.send({ message: 'Cannot be deleted' });
     }
-
   } catch (e) {
     return res.send(e);
   }

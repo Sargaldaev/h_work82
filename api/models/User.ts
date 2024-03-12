@@ -3,7 +3,7 @@ import { UserFields } from '../type';
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 
- export interface UserMethods extends UserFields {
+export interface UserMethods extends UserFields {
   checkPassword(password: string): Promise<boolean>;
   generateToken(): void;
 }
@@ -45,14 +45,14 @@ const UserSchema = new Schema<UserFields, UserModel, UserMethods>({
     type: String,
     required: true,
     default: 'user',
-    enum: ['user', 'admin']
+    enum: ['user', 'admin'],
   },
-  googleID:String,
-  displayName:{
-    required:true,
-    type:String
+  googleID: String,
+  displayName: {
+    required: true,
+    type: String,
   },
-  avatar:String
+  avatar: String,
 });
 
 UserSchema.methods.generateToken = function () {

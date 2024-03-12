@@ -13,15 +13,13 @@ const Link = styled(NavLink)({
   },
 });
 
-
-
 const AppToolbar = () => {
-const {user} = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
   return (
     <>
-      <AppBar position="sticky" sx={{mb: 2}}>
+      <AppBar position="sticky" sx={{ mb: 2 }}>
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/">Music</Link>
           </Typography>
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}

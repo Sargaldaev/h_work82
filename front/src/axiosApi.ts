@@ -4,7 +4,7 @@ import { RootState } from './app/store.ts';
 import { apiUrl } from './constans.ts';
 
 export const axiosApi = axios.create({
-  baseURL: apiUrl
+  baseURL: apiUrl,
 });
 
 export const addInterceptors = (store: Store<RootState>) => {

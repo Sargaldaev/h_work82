@@ -21,7 +21,6 @@ app.use('/users', usersRouter);
 app.use('/track_histories', trackHistoriesRouter);
 
 const run = async () => {
-
   await mongoose.connect(config.db);
 
   app.listen(port, () => {
@@ -33,4 +32,4 @@ const run = async () => {
   });
 };
 
-run().catch(e => console.error(e));
+run().catch((e) => console.error(e));

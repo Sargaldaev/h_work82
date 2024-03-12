@@ -13,11 +13,11 @@ addInterceptors(store);
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <PersistGate persistor={persister}>
-          <BrowserRouter>
-            <App/>
-          </BrowserRouter>
-        </PersistGate>
+      <PersistGate persistor={persister}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </GoogleOAuthProvider>
-  </Provider>
+  </Provider>,
 );

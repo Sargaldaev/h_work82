@@ -7,7 +7,7 @@ import { onPlayYouTube } from '../../../store/track/traksSlice.ts';
 
 interface Props {
   track: Track;
-  publ:boolean;
+  publ: boolean;
   onTrackHistory: (id: string) => void;
   deleteTrackId: (id: string) => void;
   togglePublished: (id: string) => void;
@@ -18,11 +18,10 @@ const TrackItemAdmin: React.FC<Props> = ({
   onTrackHistory,
   deleteTrackId,
   togglePublished,
-  publ
+  publ,
 }) => {
   const { user } = useSelector((state: RootState) => state.user);
-  const { deleteLoadTrack,publishedTrackLoad } = useSelector((state: RootState) => state.track);
-
+  const { deleteLoadTrack, publishedTrackLoad } = useSelector((state: RootState) => state.track);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -40,7 +39,7 @@ const TrackItemAdmin: React.FC<Props> = ({
           color: 'text.primary',
           mb: 4,
           borderBottom: '1px solid white',
-          padding:'1px'
+          padding: '1px',
         }}
       >
         <Box
@@ -50,16 +49,12 @@ const TrackItemAdmin: React.FC<Props> = ({
             gap: '35px',
           }}
         >
-          {
-            !publ ? (
-              <>
-                <Box sx={{color:'red'}}>
-                  Not published
-                </Box>
-              </>
-            ) : null
-          }
-          <Typography variant="body1" fontWeight="bold" sx={{ms: 2}}>
+          {!publ ? (
+            <>
+              <Box sx={{ color: 'red' }}>Not published</Box>
+            </>
+          ) : null}
+          <Typography variant="body1" fontWeight="bold" sx={{ ms: 2 }}>
             {track.songNumber}
           </Typography>
 
@@ -68,11 +63,16 @@ const TrackItemAdmin: React.FC<Props> = ({
           </Typography>
         </Box>
 
-        <Box
-          display={'flex'}
-        >
-
-          <Typography variant="body1"  sx={{borderRadius: '10px', border:'1px solid white', padding: '5px',marginRight:'5px'}}>
+        <Box display={'flex'}>
+          <Typography
+            variant="body1"
+            sx={{
+              borderRadius: '10px',
+              border: '1px solid white',
+              padding: '5px',
+              marginRight: '5px',
+            }}
+          >
             {track.duration}
           </Typography>
           {user ? (
@@ -82,7 +82,7 @@ const TrackItemAdmin: React.FC<Props> = ({
                 bgcolor: 'green',
                 borderRadius: '10px',
                 color: 'white',
-                padding: '3px'
+                padding: '3px',
               }}
               onClick={click}
             >
@@ -93,20 +93,26 @@ const TrackItemAdmin: React.FC<Props> = ({
         <Button
           disabled={deleteLoadTrack === track._id}
           onClick={() => deleteTrackId(track._id)}
+          sx={{ position: 'absolute', right: 320 }}
         >
-          {deleteLoadTrack === track._id ? 'Удаление' : 'Удалить'}
+          {deleteLoadTrack === track._id ? (
+            'deleting'
+          ) : (
+            <Typography sx={{ color: 'red', fontWeight: 900, fontSize: 12 }}>delete</Typography>
+          )}
         </Button>
 
         <Button
           disabled={publishedTrackLoad === track._id}
           onClick={() => togglePublished(track._id)}
+          sx={{ position: 'absolute', right: 420 }}
         >
           {publishedTrackLoad === track._id ? (
-            <CircularProgress/>
+            <CircularProgress />
           ) : track.isPublished ? (
-            'unPublish'
+            <Typography sx={{ color: 'red', fontWeight: 900, fontSize: 12 }}>unpublish</Typography>
           ) : (
-            `publish`
+            <Typography sx={{ color: 'green', fontWeight: 900, fontSize: 12 }}>publish</Typography>
           )}
         </Button>
       </Box>

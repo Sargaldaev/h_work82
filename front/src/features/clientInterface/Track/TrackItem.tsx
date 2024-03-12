@@ -12,9 +12,9 @@ interface Props {
   onTrackHistory: (id: string) => void;
 }
 
-const TracksItem: React.FC<Props> = ({track, onTrackHistory, publ, deleteTrackId}) => {
-  const {user} = useSelector((state: RootState) => state.user);
-  const {deleteLoadTrack} = useSelector((state: RootState) => state.track);
+const TracksItem: React.FC<Props> = ({ track, onTrackHistory, publ, deleteTrackId }) => {
+  const { user } = useSelector((state: RootState) => state.user);
+  const { deleteLoadTrack } = useSelector((state: RootState) => state.track);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -32,7 +32,7 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory, publ, deleteTrackId
         color: 'text.primary',
         mb: 4,
         borderBottom: '1px solid white',
-        padding: '1px'
+        padding: '1px',
       }}
     >
       <Box
@@ -42,16 +42,12 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory, publ, deleteTrackId
           gap: '35px',
         }}
       >
-        {
-          !publ ? (
-            <>
-              <Box sx={{color: 'red'}}>
-                Not published
-              </Box>
-            </>
-          ) : null
-        }
-        <Typography variant="body1" fontWeight="bold" sx={{ms: 2}}>
+        {!publ ? (
+          <>
+            <Box sx={{ color: 'red' }}>Not published</Box>
+          </>
+        ) : null}
+        <Typography variant="body1" fontWeight="bold" sx={{ ms: 2 }}>
           {track.songNumber}
         </Typography>
 
@@ -60,13 +56,16 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory, publ, deleteTrackId
         </Typography>
       </Box>
 
-      <Box
-        display={'flex'}
-      >
-
+      <Box display={'flex'}>
         <Typography
           variant="body1"
-          sx={{borderRadius: '10px', border: '1px solid white', padding: '5px', marginRight: '5px'}}>
+          sx={{
+            borderRadius: '10px',
+            border: '1px solid white',
+            padding: '5px',
+            marginRight: '5px',
+          }}
+        >
           {track.duration}
         </Typography>
         {user ? (
@@ -76,25 +75,23 @@ const TracksItem: React.FC<Props> = ({track, onTrackHistory, publ, deleteTrackId
               bgcolor: 'green',
               borderRadius: '10px',
               color: 'white',
-              padding: '3px'
+              padding: '3px',
             }}
             onClick={click}
           >
             Play
           </Button>
-
         ) : null}
       </Box>
-      {
-        user?._id === track.user && !track.isPublished ? (
-          <Button
-            disabled={deleteLoadTrack === track._id}
-            onClick={() => deleteTrackId(track._id)}
-          >
-            {deleteLoadTrack === track._id ? 'load' : 'delete'}
-          </Button>
-        ) : null
-      }
+      {user?._id === track.user && !track.isPublished ? (
+        <Button
+          disabled={deleteLoadTrack === track._id}
+          onClick={() => deleteTrackId(track._id)}
+          sx={{ position: 'absolute', right: 320,color:'red' }}
+        >
+          {deleteLoadTrack === track._id ? 'load' : 'delete'}
+        </Button>
+      ) : null}
     </Box>
   );
 };

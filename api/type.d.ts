@@ -3,40 +3,39 @@ import user from './models/User';
 
 export interface UserFields {
   username: string;
-  displayName:string;
-  googleID?:string;
-  avatar?:string;
+  displayName: string;
+  googleID?: string;
+  avatar?: string;
   password: string;
   token: string;
   role: string;
 }
 
 export interface ArtistCreate {
-  user:user;
+  user: user;
   name: string;
   image: string | null;
   description: string | null;
-  isPublished: boolean
+  isPublished: boolean;
 }
 
 export interface AlbumCreate {
-  user:user;
+  user: user;
   name: string;
   artist: string;
   image: string | null;
   releaseYear: number;
-  isPublished: boolean
-
+  isPublished: boolean;
 }
 
 export interface TrackCreate {
-  user:user;
+  user: user;
   name: string;
   album: Schema.Types.ObjectId;
   duration: string;
   songNumber: number;
   youTube: string;
-  isPublished: boolean
+  isPublished: boolean;
 }
 
 export interface TrackMutation {

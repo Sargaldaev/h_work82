@@ -11,8 +11,8 @@ const AlbumSchema = new Schema({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) => await User.findById(value),
-      message: 'User does not exist'
-    }
+      message: 'User does not exist',
+    },
   },
 
   artist: {
@@ -21,30 +21,28 @@ const AlbumSchema = new Schema({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) => await Artist.findById(value),
-      message: 'Artist does not exist'
-    }
+      message: 'Artist does not exist',
+    },
   },
 
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   releaseYear: {
     type: Number,
-    required: true
+    required: true,
   },
   image: {
-    type: String
+    type: String,
   },
 
-  isPublished : {
-    type:Boolean,
-    default:false
-  }
-
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Album = mongoose.model('Album', AlbumSchema);
 export default Album;
-

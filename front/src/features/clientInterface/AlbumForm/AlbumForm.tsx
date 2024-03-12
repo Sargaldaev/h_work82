@@ -16,7 +16,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField
+  TextField,
 } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import InputFile from '../../../components/InputFile/InputFile.tsx';
@@ -31,15 +31,15 @@ const darkTheme = createTheme({
 const AlbumForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const {createLoad} = useSelector((state: RootState) => state.album);
-  const {user} = useSelector((state: RootState) => state.user);
-  const {artists} = useSelector((state: RootState) => state.artist);
+  const { createLoad } = useSelector((state: RootState) => state.album);
+  const { user } = useSelector((state: RootState) => state.user);
+  const { artists } = useSelector((state: RootState) => state.artist);
 
   const [state, setState] = useState<AlbumCreate>({
     name: '',
     releaseYear: '',
     artist: '',
-    image: null
+    image: null,
   });
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const AlbumForm = () => {
   }, [dispatch, user, navigate]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, files} = e.target;
+    const { name, value, files } = e.target;
     setState((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
@@ -58,7 +58,7 @@ const AlbumForm = () => {
   };
 
   const inputChangeHandlerSelect = (event: SelectChangeEvent) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -78,9 +78,16 @@ const AlbumForm = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline/>
+        <CssBaseline />
 
-        <Button component={Link} to={`/`} sx={{position: 'absolute', top: 130, left: 555}} size="small">Main</Button>
+        <Button
+          component={Link}
+          to={`/`}
+          sx={{ position: 'absolute', top: 130, left: 555 }}
+          size="small"
+        >
+          Main
+        </Button>
         <Box
           sx={{
             marginTop: 8,
@@ -89,13 +96,9 @@ const AlbumForm = () => {
             alignItems: 'center',
           }}
         >
-          <Box
-            display={'flex'}
-          >
-            Create Album
-          </Box>
+          <Box display={'flex'}>Create Album</Box>
 
-          <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+          <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -109,7 +112,6 @@ const AlbumForm = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-
                 <FormControl fullWidth>
                   <InputLabel id="artist-label">Artist</InputLabel>
                   <Select
@@ -143,10 +145,7 @@ const AlbumForm = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <InputFile
-                  name={'image'}
-                  image={state.image}
-                  onChange={onChange}/>
+                <InputFile name={'image'} image={state.image} onChange={onChange} />
               </Grid>
             </Grid>
             <Button
@@ -154,10 +153,10 @@ const AlbumForm = () => {
               fullWidth
               color={'success'}
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               disabled={!!createLoad}
             >
-              {createLoad ? <CircularProgress/> : 'Create'}
+              {createLoad ? <CircularProgress /> : 'Create'}
             </Button>
           </Box>
         </Box>

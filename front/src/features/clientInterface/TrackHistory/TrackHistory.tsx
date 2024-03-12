@@ -7,11 +7,10 @@ import dayjs from 'dayjs';
 import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 
-
 const TrackHistory = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {trackHistory} = useSelector((state: RootState) => state.trackHistory);
-  const {user} = useSelector((state: RootState) => state.user);
+  const { trackHistory } = useSelector((state: RootState) => state.trackHistory);
+  const { user } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,40 +18,33 @@ const TrackHistory = () => {
       navigate('/login');
     }
 
-      dispatch(historyTrackData());
-
+    dispatch(historyTrackData());
   }, [dispatch, navigate, trackHistory.length, user]);
 
   return (
     <>
-      <Button component={Link} to={`/`} size="small">Back</Button>
+      <Button component={Link} to={`/`} size="small">
+        Back
+      </Button>
       {!trackHistory.length ? (
         <Typography variant="h6" align="center" className="text-white fw-bold">
           Your story list is empty
         </Typography>
       ) : (
         <Grid>
-
-          {
-            trackHistory.map((track) => (
+          {trackHistory.map((track) => (
             <Grid
               display={'flex'}
               key={track._id}
-              sx=
-                {{justifyContent:'space-around',
-                borderBottom:'2px solid white',
-                marginBottom:'10px',
-            }}
+              sx={{
+                justifyContent: 'space-around',
+                borderBottom: '2px solid white',
+                marginBottom: '10px',
+              }}
             >
-              <Typography >
-                {track.track.album.artist.name}
-              </Typography>
-              <Typography >
-                {track.track.name}
-              </Typography>
-              <Typography>
-                {dayjs(track.datetime).format('HH:mm:ss DD.MM.YYYY')}
-              </Typography>
+              <Typography>{track.track.album.artist.name}</Typography>
+              <Typography>{track.track.name}</Typography>
+              <Typography>{dayjs(track.datetime).format('HH:mm:ss DD.MM.YYYY')}</Typography>
             </Grid>
           ))}
         </Grid>

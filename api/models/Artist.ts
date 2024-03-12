@@ -10,26 +10,25 @@ const ArtistSchema = new Schema({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) => await User.findById(value),
-      message: 'User does not exist'
-    }
+      message: 'User does not exist',
+    },
   },
   name: {
     type: String,
     required: true,
-    unique:true
+    unique: true,
   },
   image: {
-    type: String
+    type: String,
   },
   description: {
-    type: String
+    type: String,
   },
-  isPublished : {
-    type:Boolean,
-    default:false
-  }
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Artist = mongoose.model('Artist', ArtistSchema);
 export default Artist;
-

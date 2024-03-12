@@ -41,7 +41,9 @@ const TrackAdmin = () => {
   };
   return (
     <Box>
-      <Button component={Link} to={`/artist/${albumsInfo?.artist._id}`} size="small">Back</Button>
+      <Button component={Link} to={`/artist/${albumsInfo?.artist._id}`} size="small">
+        Back
+      </Button>
 
       {albumsInfo ? (
         <Box>
@@ -56,7 +58,7 @@ const TrackAdmin = () => {
         </Box>
       ) : null}
       {fetchLoadTrack ? (
-        <CircularProgress/>
+        <CircularProgress />
       ) : (
         tracks.map((track) => (
           <TrackItemAdmin

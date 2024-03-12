@@ -4,11 +4,11 @@ import { createTrack, deleteTrack, fetchDataTrack, publishedTrack } from './trac
 
 export interface TrackState {
   tracks: Track[];
-  createLoad: boolean,
-  urlYoutube: string,
-  fetchLoadTrack: boolean,
-  deleteLoadTrack: string,
-  publishedTrackLoad: string,
+  createLoad: boolean;
+  urlYoutube: string;
+  fetchLoadTrack: boolean;
+  deleteLoadTrack: string;
+  publishedTrackLoad: string;
 }
 
 const initialState: TrackState = {
@@ -17,7 +17,7 @@ const initialState: TrackState = {
   createLoad: false,
   fetchLoadTrack: false,
   deleteLoadTrack: '',
-  publishedTrackLoad: ''
+  publishedTrackLoad: '',
 };
 
 export const trackSlice = createSlice({
@@ -36,14 +36,16 @@ export const trackSlice = createSlice({
     builder.addCase(fetchDataTrack.pending, (state: TrackState) => {
       state.fetchLoadTrack = true;
     });
-    builder.addCase(fetchDataTrack.fulfilled, (state: TrackState, action: PayloadAction<Track[]>) => {
-      state.fetchLoadTrack = false;
-      state.tracks = action.payload;
-    });
+    builder.addCase(
+      fetchDataTrack.fulfilled,
+      (state: TrackState, action: PayloadAction<Track[]>) => {
+        state.fetchLoadTrack = false;
+        state.tracks = action.payload;
+      },
+    );
     builder.addCase(fetchDataTrack.rejected, (state: TrackState) => {
       state.fetchLoadTrack = false;
     });
-
 
     builder.addCase(createTrack.pending, (state: TrackState) => {
       state.createLoad = true;
@@ -55,7 +57,6 @@ export const trackSlice = createSlice({
       state.createLoad = false;
     });
 
-
     builder.addCase(deleteTrack.pending, (state: TrackState, action) => {
       state.deleteLoadTrack = action.meta.arg || '';
     });
@@ -65,8 +66,6 @@ export const trackSlice = createSlice({
     builder.addCase(deleteTrack.rejected, (state: TrackState) => {
       state.deleteLoadTrack = '';
     });
-
-
 
     builder.addCase(publishedTrack.pending, (state: TrackState, action) => {
       state.publishedTrackLoad = action.meta.arg || '';
@@ -81,4 +80,4 @@ export const trackSlice = createSlice({
 });
 
 export const trackReducer = trackSlice.reducer;
-export const {onPlayYouTube, onClose} = trackSlice.actions;
+export const { onPlayYouTube, onClose } = trackSlice.actions;

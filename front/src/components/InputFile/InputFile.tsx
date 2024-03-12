@@ -45,14 +45,14 @@ const InputFile: React.FC<IProps> = ({ onChange, name, image }) => {
         ref={inputRef}
       />
       <Grid item>
-          <TextField
-            disabled
-            label="Browse image"
-            value={filename}
-            onClick={activateInput}
-            fullWidth
-          />
-        <Button variant="contained" sx={{marginTop:1}} onClick={activateInput}>
+        <TextField
+          disabled
+          label="Browse image"
+          value={filename}
+          onClick={activateInput}
+          fullWidth
+        />
+        <Button variant="contained" sx={{ marginTop: 1 }} onClick={activateInput}>
           Browse
         </Button>
       </Grid>

@@ -4,19 +4,19 @@ import { Error, HydratedDocument } from 'mongoose';
 import auth, { RequestWithUser } from '../middleware/auth';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
-import {imagesUpload} from '../multer';
+import { imagesUpload } from '../multer';
 
 const usersRouter = express.Router();
 
 const client = new OAuth2Client(config.google.clientId);
 
-usersRouter.post('/',imagesUpload.single('avatar'),async (req, res, next) => {
+usersRouter.post('/', imagesUpload.single('avatar'), async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
-      displayName:req.body.displayName,
-      avatar: req.file ?  req.file.filename : null,
+      displayName: req.body.displayName,
+      avatar: req.file ? req.file.filename : null,
     });
 
     user.generateToken();
@@ -76,9 +76,7 @@ usersRouter.post('/google', async (req, res, next) => {
     const id = payload['sub'];
     const displayName = payload['name'];
     if (!email) {
-      return res
-        .status(400)
-        .send({ error: 'Not enough user data to continue' });
+      return res.status(400).send({ error: 'Not enough user data to continue' });
     }
     let user = await User.findOne({ googleID: id });
 
@@ -88,7 +86,7 @@ usersRouter.post('/google', async (req, res, next) => {
         password: crypto.randomUUID(),
         googleID: id,
         displayName,
-        picture
+        picture,
       });
     }
 

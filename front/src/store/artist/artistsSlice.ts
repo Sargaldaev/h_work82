@@ -15,7 +15,7 @@ const initialState: ArtistState = {
   fetchLoad: false,
   createLoad: false,
   deleteLoad: '',
-  publishedArtistLoad:''
+  publishedArtistLoad: '',
 };
 
 export const artistSlice = createSlice({
@@ -34,7 +34,6 @@ export const artistSlice = createSlice({
       state.fetchLoad = false;
     });
 
-
     builder.addCase(createArtist.pending, (state: ArtistState) => {
       state.createLoad = true;
     });
@@ -45,7 +44,6 @@ export const artistSlice = createSlice({
       state.createLoad = false;
     });
 
-
     builder.addCase(deleteArtist.pending, (state: ArtistState, action) => {
       state.deleteLoad = action.meta.arg || '';
     });
@@ -55,7 +53,6 @@ export const artistSlice = createSlice({
     builder.addCase(deleteArtist.rejected, (state: ArtistState) => {
       state.deleteLoad = '';
     });
-
 
     builder.addCase(publishedArtist.pending, (state: ArtistState, action) => {
       state.publishedArtistLoad = action.meta.arg || '';

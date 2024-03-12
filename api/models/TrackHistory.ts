@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {Track_history} from '../type';
+import { Track_history } from '../type';
 import User from './User';
 import Track from './Track';
 
@@ -12,8 +12,8 @@ const TrackHistorySchema = new Schema<Track_history>({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) => await User.findById(value),
-      message: 'User does not exist'
-    }
+      message: 'User does not exist',
+    },
   },
 
   track: {
@@ -22,15 +22,14 @@ const TrackHistorySchema = new Schema<Track_history>({
     required: true,
     validate: {
       validator: async (value: mongoose.Types.ObjectId) => await Track.findById(value),
-      message: 'Track does not exist'
-    }
+      message: 'Track does not exist',
+    },
   },
 
   datetime: {
     type: Date,
-    required: true
-  }
-
+    required: true,
+  },
 });
 
 const TrackHistory = mongoose.model('TrackHistory', TrackHistorySchema);
