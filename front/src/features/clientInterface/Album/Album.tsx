@@ -68,8 +68,8 @@ const Album = () => {
                           Learn More
                         </Button>
                       </CardActions>
+
                       <Button
-                        className="btn ms-1 btn-primary "
                         disabled={deleteAlbumLoad === album._id}
                         onClick={() => deleteAlbumId(album._id)}
                       >

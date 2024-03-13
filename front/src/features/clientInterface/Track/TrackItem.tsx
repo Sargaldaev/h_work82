@@ -87,7 +87,7 @@ const TracksItem: React.FC<Props> = ({ track, onTrackHistory, publ, deleteTrackI
         <Button
           disabled={deleteLoadTrack === track._id}
           onClick={() => deleteTrackId(track._id)}
-          sx={{ position: 'absolute', right: 320,color:'red' }}
+          sx={{ position: 'absolute', right: 320, color: 'red' }}
         >
           {deleteLoadTrack === track._id ? 'load' : 'delete'}
         </Button>

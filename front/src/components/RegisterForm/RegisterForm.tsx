@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -19,19 +18,6 @@ import { googleLogin, register } from '../../store/user/userThunk';
 import { Register } from '../../types';
 import { GoogleLogin } from '@react-oauth/google';
 import InputFile from '../InputFile/InputFile.tsx';
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const Register = () => {
   const { registerLoading, registerError } = useSelector((state: RootState) => state.user);
@@ -103,7 +89,7 @@ const Register = () => {
                 }
               }}
               onError={() => {
-                console.log('log');
+                console.log('Login Failed!');
               }}
             />
             <Grid container spacing={2}>
@@ -174,7 +160,6 @@ const Register = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ marginTop: 5 }} />
       </Container>
     </ThemeProvider>
   );

@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 
 const Artist = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { artists, fetchLoad, deleteLoad } = useSelector((state: RootState) => state.artist);
-  const { user } = useSelector((state: RootState) => state.user);
+  const {artists, fetchLoad, deleteLoad} = useSelector((state: RootState) => state.artist);
+  const {user} = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -23,26 +23,29 @@ const Artist = () => {
     await dispatch(deleteArtist(id));
     await dispatch(fetchData());
   };
+
   return (
     <>
       <Box>
-        <Box display={'flex'} flexWrap={'wrap'} sx={{ gap: '10px' }}>
+        <Box display={'flex'} flexWrap={'wrap'} sx={{gap: '10px'}}>
           {fetchLoad ? (
-            <CircularProgress />
+            <CircularProgress/>
           ) : (
             artists.map((artist) => {
               return artist.isPublished || user?._id === artist.user ? (
                 user?._id === artist.user && !artist.isPublished ? (
                   <Box key={artist._id} position={'relative'}>
-                    <Box sx={{ position: 'absolute', top: 0, color: 'red' }}>Not published</Box>
-                    <Card sx={{ width: 345 }}>
+                    <Box sx={{position: 'absolute', top: 0, color: 'red'}}>Not published</Box>
+                    <Card sx={{width: 345}}>
                       {artist.image ? (
                         <CardMedia
-                          sx={{ height: 350 }}
+                          sx={{height: 350}}
                           image={`http://localhost:8000/${artist.image}`}
                         />
                       ) : (
-                        <CardMedia sx={{ height: 350 }} image={'img'} />
+
+
+                        <CardMedia sx={{height: 350}} image={'img'}/>
                       )}
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -58,21 +61,21 @@ const Artist = () => {
                           disabled={deleteLoad === artist._id}
                           onClick={() => deleteArtistId(artist._id)}
                         >
-                          {deleteLoad === artist._id ? <CircularProgress /> : 'Delete'}
+                          {deleteLoad === artist._id ? <CircularProgress/> : 'Delete'}
                         </Button>
                       </CardActions>
                     </Card>
                   </Box>
                 ) : (
                   <Box key={artist._id}>
-                    <Card sx={{ width: 345 }}>
+                    <Card sx={{width: 345}}>
                       {artist.image ? (
                         <CardMedia
-                          sx={{ height: 350 }}
+                          sx={{height: 350}}
                           image={`http://localhost:8000/${artist.image}`}
                         />
                       ) : (
-                        <CardMedia sx={{ height: 350 }} image={'img'} />
+                        <CardMedia sx={{height: 350}} image={'img'}/>
                       )}
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
