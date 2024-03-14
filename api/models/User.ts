@@ -5,6 +5,7 @@ import { randomUUID } from 'crypto';
 
 export interface UserMethods extends UserFields {
   checkPassword(password: string): Promise<boolean>;
+
   generateToken(): void;
 }
 
@@ -48,6 +49,7 @@ const UserSchema = new Schema<UserFields, UserModel, UserMethods>({
     enum: ['user', 'admin'],
   },
   googleID: String,
+  githubID: String,
   displayName: {
     required: true,
     type: String,

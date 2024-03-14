@@ -5,6 +5,8 @@ import auth, { RequestWithUser } from '../middleware/auth';
 import { OAuth2Client } from 'google-auth-library';
 import config from '../config';
 import { imagesUpload } from '../multer';
+import { randomUUID } from 'crypto';
+import {Octokit} from 'octokit';
 
 const usersRouter = express.Router();
 
@@ -93,6 +95,60 @@ usersRouter.post('/google', async (req, res, next) => {
     user.generateToken();
     await user.save();
     return res.send({ message: 'Login with Google successful!', user });
+  } catch (e) {
+    return next(e);
+  }
+});
+
+usersRouter.post('/github', async (req, res, next) => {
+  try {
+    const params = `?client_id=${config.github.clientId}&client_secret=${config.github.clientSecret}&code=${req.query.code}`;
+    const response = await fetch('https://github.com/login/oauth/access_token' + params, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      return res.status(400).send({ error: 'Github login error!' });
+    }
+
+    const payload = await response.json();
+
+    const responseUser = new Octokit({
+      auth: `Bearer ${payload.access_token}`,
+    });
+
+    if (!responseUser) {
+      return res.status(400).send({ error: 'Github login error!' });
+    }
+
+    const { data } = await responseUser.request('GET /user', {
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+
+    const login = data.login;
+    const id = data.id;
+    const avatar = data.avatar_url;
+
+    let user = (await User.findOne({ githubID: id })) as HydratedDocument<UserMethods>;
+
+    if (!user) {
+      user = new User({
+        username: login,
+        password: randomUUID(),
+        displayName: login,
+        avatar,
+        githubID: id,
+      });
+    }
+
+    user.generateToken();
+
+    await user.save();
+
+    return res.send({ message: 'Login with Github successful!', user });
   } catch (e) {
     return next(e);
   }

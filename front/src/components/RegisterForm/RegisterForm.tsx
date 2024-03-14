@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,30 +10,44 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
-import { googleLogin, register } from '../../store/user/userThunk';
+import { githubLogin, googleLogin, register } from '../../store/user/userThunk';
 import { Register } from '../../types';
 import { GoogleLogin } from '@react-oauth/google';
 import InputFile from '../InputFile/InputFile.tsx';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import { GITHUB_CLIENT_ID, GITHUB_LOGIN_URL } from '../../constans.ts';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const Register = () => {
   const { registerLoading, registerError } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const searchQuery = new URLSearchParams(search);
+  const codeSearch = searchQuery.get('code');
   const [users, setUsers] = useState<Register>({
     username: '',
     password: '',
     displayName: '',
     avatar: null,
   });
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
+
+  useEffect(() => {
+    if (codeSearch) {
+      dispatch(githubLogin(codeSearch)).unwrap();
+      navigate('/');
+    }
+  }, [codeSearch, dispatch, navigate]);
+
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -63,6 +77,7 @@ const Register = () => {
     await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
   };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
@@ -92,6 +107,15 @@ const Register = () => {
                 console.log('Login Failed!');
               }}
             />
+
+            <Button
+              component={Link}
+              to={GITHUB_LOGIN_URL + GITHUB_CLIENT_ID}
+              sx={{ color: 'white', background: 'black', width: 400 }}
+            >
+              <Typography sx={{ marginRight: 3 }}>register via GitHub</Typography>
+              <GitHubIcon />
+            </Button>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

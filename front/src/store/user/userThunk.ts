@@ -49,8 +49,23 @@ export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalE
   'users/googleLogin',
   async (credential, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
-      return response.data.user;
+      const { data } = await axiosApi.post<RegisterResponse>('/users/google', { credential });
+      return data.user;
+    } catch (e) {
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+        return rejectWithValue(e.response.data as GlobalError);
+      }
+      throw e;
+    }
+  },
+);
+
+export const githubLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
+  'users/githubLogin',
+  async (code, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosApi.post<RegisterResponse>('/users/github?code=' + code);
+      return data.user;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
         return rejectWithValue(e.response.data as GlobalError);

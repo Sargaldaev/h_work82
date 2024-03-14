@@ -5,6 +5,7 @@ export interface UserFields {
   username: string;
   displayName: string;
   googleID?: string;
+  githubID?: string;
   avatar?: string;
   password: string;
   token: string;
